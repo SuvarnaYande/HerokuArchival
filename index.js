@@ -9,9 +9,6 @@ function oauthCallbackUrl(req) {
 }
 
 express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
   .get('/', (req, res) => {
 	  var org = nforce.createConnection({
       clientId: process.env.CONSUMER_KEY,
@@ -19,7 +16,7 @@ express()
       redirectUri: oauthCallbackUrl(req),
       mode: 'single'
     });
-	
+	console.log ("req.query.code:: " +req.query.code );
 	if (req.query.code !== undefined) {
       // authenticated
       org.authenticate(req.query, function(err) {
@@ -42,6 +39,10 @@ express()
           }
         }
       });
+    }
+	else {
+	  console.log ("Redirect to SFDC" );
+      res.redirect(org.getAuthUri());
     }
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
