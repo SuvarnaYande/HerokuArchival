@@ -39,8 +39,11 @@ express()
 			  //console.log ("JSON format: " + JSON.Stringify (results.records ));
 			  //console.log ("JSON format: " + JSON.Parse (results.records ));
 			  for (i = 0; i < results.records.length; i++){
-			    console.log (results.records[i].get ('id'));
-				console.log (results.records[i].get ('name'));
+				for (j = 0; j < result.records[i].length; j++){
+				  console.log(results.records[i][j]);
+				}
+			    //console.log (results.records[i].get ('id'));
+				//console.log (results.records[i].get ('name'));
 			  }
               res.render('index', {records: results.records});
 			  //const client = await pool.connect()
