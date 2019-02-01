@@ -4,6 +4,9 @@ const nforce = require ('nforce')
 var hbs = require('hbs');
 const PORT = process.env.PORT || 5000
 
+
+app.set('view engine', 'hbs');
+
 function oauthCallbackUrl(req) {
   return req.protocol + '://' + req.get('host');
 }
