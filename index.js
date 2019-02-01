@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const nforce = require ('nforce')
 var hbs = require('hbs');
+var JSON = require('json2');
 
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
@@ -36,9 +37,10 @@ express()
           org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
             if (!err) {
 				console.log ("Query result: " + results.records );
-			  //console.log ("JSON format: " + JSON.Stringify (results.records ));
-			  //console.log ("JSON format: " + JSON.Parse (results.records ));
+			  console.log ("JSON format: " + JSON.Stringify (results.records ));
+			  console.log ("JSON format: " + JSON.Parse (results.records ));
 			  for (i = 0; i < results.records.length; i++){
+				console.log("single record length": results.records[i].length);
 				for (j = 0; j < results.records[i].length; j++){
 				  console.log(results.records[i][j]);
 				}
