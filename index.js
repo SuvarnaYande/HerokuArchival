@@ -27,9 +27,9 @@ express()
 	  console.log ("Authentication red code: " + req.query.code );
       org.authenticate(req.query, function(err) {
         if (!err) {
-          org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {
-			  console.log ("Query result err: " + err );
+          org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
             if (!err) {
+				console.log ("Query result: " + results.records );
               res.render('index', {records: results.records});
             }
             else {
