@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const nforce = require ('nforce')
 var hbs = require('hbs');
-const json2 = require('json2');
+const json2 = require('JSON2/static/json2');
 
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
