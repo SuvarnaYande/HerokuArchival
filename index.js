@@ -36,8 +36,8 @@ express()
           org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
             if (!err) {
 				console.log ("Query result: " + results.records );
-			  console.log ("JSON format: " + JSON.Stringify (results.records ));
-			  console.log ("JSON format: " + JSON.Parse (results.records ));
+			  //console.log ("JSON format: " + JSON.Stringify (results.records ));
+			  //console.log ("JSON format: " + JSON.Parse (results.records ));
 			  for (i = 0; i < results.records.length; i++){
 			    console.log (results.records[i].get ('id'));
 				console.log (results.records[i].get ('name'));
