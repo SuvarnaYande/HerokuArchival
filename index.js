@@ -39,7 +39,7 @@ express()
 			  //console.log ("JSON format: " + JSON.Stringify (results.records ));
 			  //console.log ("JSON format: " + JSON.Parse (results.records ));
 			  for (i = 0; i < results.records.length; i++){
-				for (j = 0; j < result.records[i].length; j++){
+				for (j = 0; j < results.records[i].length; j++){
 				  console.log(results.records[i][j]);
 				}
 			    //console.log (results.records[i].get ('id'));
