@@ -3,6 +3,11 @@ const path = require('path')
 const nforce = require ('nforce')
 var hbs = require('hbs');
 const PORT = process.env.PORT || 5000
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
 
 function oauthCallbackUrl(req) {
   return req.protocol + '://' + req.get('host');
@@ -30,7 +35,18 @@ express()
           org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
             if (!err) {
 				console.log ("Query result: " + results.records );
+			  console.log ("JSON format: " + JSON.serialize (results.records ));
+			  console.log ("JSON format: " + JSON.parse (results.records ));
+			  for (i = 0; i < results.records.length; i++){
+			    console.log (results.records[i].get ('id'));
+				console.log (results.records[i].get ('name'));
+			  }
               res.render('index', {records: results.records});
+			  //const client = await pool.connect()
+			  //const result = await client.query('SELECT * FROM test_table');
+			  //const results = { 'results': (result) ? result.rows : null};
+			  //res.render('pages/db', results );
+			  //client.release();
             }
             else {
               res.send(err.message);
