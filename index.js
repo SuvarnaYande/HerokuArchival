@@ -4,9 +4,6 @@ const nforce = require ('nforce')
 var hbs = require('hbs');
 const PORT = process.env.PORT || 5000
 
-
-app.set('view engine', 'hbs');
-
 function oauthCallbackUrl(req) {
   return req.protocol + '://' + req.get('host');
 }
@@ -16,6 +13,7 @@ hbs.registerHelper('get', function(field) {
 });
 
 express()
+  .set('view engine', 'hbs')
   .get('/', (req, res) => {
 	  var org = nforce.createConnection({
       clientId: process.env.CONSUMER_KEY,
