@@ -8,6 +8,10 @@ function oauthCallbackUrl(req) {
   return req.protocol + '://' + req.get('host');
 }
 
+hbs.registerHelper('get', function(field) {
+  return this.get(field);
+});
+
 express()
   .get('/', (req, res) => {
 	  var org = nforce.createConnection({
