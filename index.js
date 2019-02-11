@@ -33,7 +33,7 @@ express()
 				console.log ("Query result: " + results.records );
 				console.log (JSON.stringify (results.records));
 				
-              //res.render('index', {records: results.records});
+                res.render('index', {records: results.records});
             }
             else {
               res.send(err.message);
