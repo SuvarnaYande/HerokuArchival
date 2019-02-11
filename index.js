@@ -38,6 +38,7 @@ express()
             if (!err) {
 				console.log ("Query result: " + results.records );
 				console.log (JSON.stringify (results.records));
+				console.log (JSON.parse(JSON.stringify (results.records)));
 				var completeResult; 
 				for (i=0; i<results.records.length; i++){
 					console.log (i);
