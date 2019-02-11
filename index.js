@@ -42,8 +42,8 @@ express()
 				//console.log ("Parse result: " );
 				//console.log (JSON.parse(results.records));
 				
-				console.log ("parseJSON result: " );
-				console.log ((JSON.stringify (results.records)).parseJSON());
+				//console.log ("parseJSON result: " );
+				//console.log ((JSON.stringify (results.records)).parseJSON());
 				console.log ("Array result: " );
 				console.log (JSON.parse(JSON.stringify (results.records)));
 				console.log ("toJSONString result: " );
