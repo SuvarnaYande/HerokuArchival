@@ -41,12 +41,13 @@ express()
 				console.log (JSON.stringify (results.records));
 				//console.log ("Parse result: " );
 				//console.log (JSON.parse(results.records));
-				console.log ("toJSONString result: " );
-				console.log (results.records.toJSONString());
+				
 				console.log ("parseJSON result: " );
 				console.log ((JSON.stringify (results.records)).parseJSON());
 				console.log ("Array result: " );
 				console.log (JSON.parse(JSON.stringify (results.records)));
+				console.log ("toJSONString result: " );
+				console.log (JSON.parse(JSON.stringify (results.records)).toJSONString());
 				var completeResult; 
 				for (i=0; i<results.records.length; i++){
 					console.log (i);
