@@ -39,6 +39,7 @@ express()
 				console.log ("Query result: " + results.records );
 				console.log ("Stringify:::"); 
 				console.log (JSON.stringify (results.records));
+				console.log ("Len:: " + JSON.stringify (results.records).length);
 				//console.log ("Parse result: " );
 				//console.log (JSON.parse(results.records));
 				
@@ -46,8 +47,8 @@ express()
 				//console.log ((JSON.stringify (results.records)).parseJSON());
 				console.log ("Array result: " );
 				console.log (JSON.parse(JSON.stringify (results.records)));
-				console.log ("toJSONString result: " );
-				console.log (JSON.parse(JSON.stringify (results.records)).toJSONString());
+				//console.log ("toJSONString result: " );
+				//console.log (JSON.parse(JSON.stringify (results.records)).toJSONString());
 				var completeResult; 
 				for (i=0; i<results.records.length; i++){
 					console.log (i);
