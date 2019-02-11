@@ -26,15 +26,17 @@ express()
 	if (req.query.code !== undefined) {
       // authenticated
 	  console.log ("Authentication red code: " + req.query.code );
+	  var result; 
       org.authenticate(req.query, function(err) {
         if (!err) {
           org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
             if (!err) {
 				console.log ("Query result: " + results.records );
 				console.log (JSON.stringify (results.records));
+				result = JSON.stringify (results.records);
 				for (i=0; i<results.records.length; i++){
 					console.log (i);
-					console.log (JSON.parse (results.records[i].json));
+					//console.log (JSON.parse (results.records[i].json));
 				}
                 res.render('index', {records: results.records});
             }
@@ -52,6 +54,11 @@ express()
           }
         }
       });
+	  
+	  if (result != null){
+		  console.log("RESULT::");
+		  console.log (result);
+	  }
     }
 	else {
 	  console.log ("Redirect to SFDC" );
