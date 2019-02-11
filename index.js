@@ -42,7 +42,7 @@ express()
 				for (i=0; i<results.records.length; i++){
 					console.log (i);
 					console.log (results.records[i]._fields);
-					completeResult = '(\'' + results.records[i]._fields + '\'),' 
+					completeResult = '(\'' + results.records[i]._fields.toString() + '\'),' 
 					//console.log (JSON.parse (results.records[i].json));
 				}
 				console.log (completeResult); 
