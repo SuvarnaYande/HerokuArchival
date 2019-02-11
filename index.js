@@ -32,10 +32,7 @@ express()
             if (!err) {
 				console.log ("Query result: " + results.records );
 				console.log (JSON.stringify (results.records));
-				for (i=0; i<results.records.lenght; i++){
-					
-					console.log (JSON.stringify (results.records[i]));
-				}
+				
               //res.render('index', {records: results.records});
             }
             else {
