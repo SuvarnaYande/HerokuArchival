@@ -45,8 +45,7 @@ express()
 				}
 				
 				const client = pool.connect()
-				client.query('CREATE TABLE IF NOT EXISTS Account (Id nvarchar (20), name string, type string, industry string, rating string)', function (err, res){
-				});
+				pool.query('CREATE TABLE IF NOT EXISTS Account (Id nvarchar (20), name string, type string, industry string, rating string)');
 				//await client.query('INSERT INTO Account VALUES ' + JSON.stringify (results.records));
 				//const result = await client.query('SELECT * FROM Account');
 				//const results = { 'results': (result != null) ? result.rows : null};
