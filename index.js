@@ -41,7 +41,7 @@ express()
 				
 				for (i=0; i<results.records.length; i++){
 					console.log (i);
-					console.log (results.records[i]);
+					console.log (results.records[i]._fields);
 					//console.log (JSON.parse (results.records[i].json));
 				}
 				
