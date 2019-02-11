@@ -37,7 +37,15 @@ express()
           org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
             if (!err) {
 				console.log ("Query result: " + results.records );
+				console.log ("Stringify:::"); 
 				console.log (JSON.stringify (results.records));
+				console.log ("Parse result: " );
+				console.log (JSON.parse(results.records));
+				console.log ("toJSONString result: " );
+				console.log (results.records.toJSONString());
+				console.log ("parseJSON result: " );
+				console.log ((JSON.stringify (results.records)).parseJSON());
+				console.log ("Array result: " );
 				console.log (JSON.parse(JSON.stringify (results.records)));
 				var completeResult; 
 				for (i=0; i<results.records.length; i++){
