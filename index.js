@@ -46,13 +46,13 @@ express()
 				
 				const client = pool.connect()
 				pool.query('CREATE TABLE IF NOT EXISTS Account (Id nvarchar (20), name string, type string, industry string, rating string)');
-				//await client.query('INSERT INTO Account VALUES ' + JSON.stringify (results.records));
-				//const result = await client.query('SELECT * FROM Account');
-				//const results = { 'results': (result != null) ? result.rows : null};
+				pool.query('INSERT INTO Account VALUES ' + JSON.stringify (results.records));
+				const result = pool.query('SELECT * FROM Account');
+				const resultpgs = { 'resultpgs': (result != null) ? result.rows : null};
 				console.log ('Data from PG:::: ');
-				console.log (results);
+				console.log (resultpgs);
 				//res.render('pages/db', results );
-				client.release();
+				pool.end();
 	  
                 res.render('index', {records: results.records});
             }
