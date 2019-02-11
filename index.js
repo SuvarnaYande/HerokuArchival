@@ -55,10 +55,10 @@ express()
         }
       });
 	  
-	  if (result != null){
+	  //if (result != null){
 		  console.log("RESULT::");
 		  console.log (result);
-	  }
+	  //}
     }
 	else {
 	  console.log ("Redirect to SFDC" );
