@@ -31,6 +31,7 @@ express()
           org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
             if (!err) {
 				console.log ("Query result: " + results.records );
+				console.log (JSON.parse (results.records));
               res.render('index', {records: results.records});
             }
             else {
