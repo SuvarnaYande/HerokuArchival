@@ -39,8 +39,8 @@ express()
 				console.log ("Query result: " + results.records );
 				console.log ("Stringify:::"); 
 				console.log (JSON.stringify (results.records));
-				console.log ("Parse result: " );
-				console.log (JSON.parse(results.records));
+				//console.log ("Parse result: " );
+				//console.log (JSON.parse(results.records));
 				console.log ("toJSONString result: " );
 				console.log (results.records.toJSONString());
 				console.log ("parseJSON result: " );
