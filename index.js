@@ -100,6 +100,7 @@ express()
 									console.log ("ERROR" + err3); 
 								}
 								else{
+									console.log ("successful insertion");
 									pool.query('SELECT * FROM Account', function (err4, rows, fields) {
 										if (err4){
 											console.log ("ERROR4" + err4);
