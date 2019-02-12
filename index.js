@@ -51,7 +51,7 @@ express()
 				//console.log ("toJSONString result: " );
 				//console.log (JSON.parse(JSON.stringify (results.records)).toJSONString());
 				var fieldNames = myQuery.substring(myQuery.indexOf('SELECT') + 6, myQuery.indexOf('FROM')); 
-				var fields = fieldNames.split(,); 
+				var fields = fieldNames.split(','); 
 				var completeResult = ''; 
 				var completeResult1 = ''; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
