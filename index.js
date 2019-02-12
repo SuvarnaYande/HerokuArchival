@@ -102,6 +102,7 @@ express()
 								else{
 									console.log ("successful insertion");
 									pool.query('SELECT * FROM Account', function (err4, rows, fields) {
+										console.log ("Select err4:: " + err4);
 										if (err4){
 											console.log ("ERROR4" + err4);
 										}
@@ -111,8 +112,9 @@ express()
 											console.log (rows);
 										}
 									});
+									pool.end();
 								}
-								pool.end();
+								
 							});
 							
 						}
