@@ -61,15 +61,15 @@ express()
 					console.log (arrResult[i]);
 					//console.log (JSON.stringify(arrResult[i]));
 					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
-					//var finalResult = '('; 
+					var finalResult = '('; 
 					for (j=0; j< fields.length; j++){
 						console.log (fields[j].trim()); 
 						//console.log (arrResult[i].get(field.trim())); 
 						console.log (arrResult[i][fields[j].trim()]); 
-						//finalResult += arrResult[i][field] + ',';
+						finalResult += arrResult[i][fields[j].trim()] + ',';
 					}
-					//finalResult = finalResult.substring (0, finalResult.length - 1) + ')';
-					//completeResult1 += finalResult;
+					finalResult = finalResult.substring (0, finalResult.length - 1) + ')';
+					completeResult1 += finalResult;
 					//console.log (arrResult[i].json);
 				}
 				
@@ -82,7 +82,7 @@ express()
 				completeResult = completeResult.substring (0, completeResult.length - 1)
 				//console.log (completeResult); 
 				console.log('INSERT INTO Account VALUES ' + completeResult); 
-				//console.log('NEWWWWWWWWWWWWWWWWWWW INSERT INTO Account ' + fieldNames +' VALUES ' + completeResult1); 
+				console.log('NEWWWWWWWWWWWWWWWWWWW INSERT INTO Account ' + fieldNames +' VALUES ' + completeResult1); 
 				//const client = pool.connect();
 				//pool.query('DROP TABLE IF EXISTS Account');
 				//pool.query('CREATE TABLE IF NOT EXISTS Account (name text, type text, industry text, rating text, id text)');
