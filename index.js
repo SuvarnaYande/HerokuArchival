@@ -54,6 +54,11 @@ express()
 				console.log (fieldNames); 
 				var fields = fieldNames.split(','); 
 				console.log (fields); 
+				var columnNames = ''; 
+				for (j=0; j< fields.length; j++){
+					columnNames += '"' + fields[j].trim() + '",';
+				}
+				columnNames = columnNames.substring (0, columnNames.length - 1);
 				var completeResult = ''; 
 				var completeResult1 = ''; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
@@ -66,7 +71,7 @@ express()
 						console.log (fields[j].trim()); 
 						//console.log (arrResult[i].get(field.trim())); 
 						console.log (arrResult[i][fields[j].trim()]); 
-						finalResult += arrResult[i][fields[j].trim()] + ',';
+						finalResult += '"' + arrResult[i][fields[j].trim()] + '",';
 					}
 					finalResult = finalResult.substring (0, finalResult.length - 1) + '),';
 					completeResult1 += finalResult;
@@ -83,7 +88,7 @@ express()
 				completeResult1 = completeResult1.substring (0, completeResult1.length - 1)
 				//console.log (completeResult); 
 				console.log('INSERT INTO Account VALUES ' + completeResult); 
-				console.log('INSERT INTO Account (' + fieldNames +') VALUES ' + completeResult1); 
+				console.log('INSERT INTO Account (' + columnNames +') VALUES ' + completeResult1); 
 				const client = pool.connect();
 				pool.query('DROP TABLE IF EXISTS Account', function (err, result){
 					pool.query('CREATE TABLE IF NOT EXISTS Account (name text, type text, industry text, rating text, id text)' , function (err, results, fields){
