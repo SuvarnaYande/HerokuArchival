@@ -71,7 +71,7 @@ express()
 						console.log (fields[j].trim()); 
 						//console.log (arrResult[i].get(field.trim())); 
 						console.log (arrResult[i][fields[j].trim()]); 
-						finalResult += '"' + arrResult[i][fields[j].trim()] + '",';
+						finalResult += '\'' + arrResult[i][fields[j].trim()] + '\',';
 					}
 					finalResult = finalResult.substring (0, finalResult.length - 1) + '),';
 					completeResult1 += finalResult;
