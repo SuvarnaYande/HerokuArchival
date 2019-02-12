@@ -90,18 +90,27 @@ express()
 				console.log('INSERT INTO Account VALUES ' + completeResult); 
 				console.log('INSERT INTO Account (' + columnNames +') VALUES ' + completeResult1); 
 				const client = pool.connect();
-				pool.query('DROP TABLE IF EXISTS Account', function (err, result){
-					pool.query('CREATE TABLE IF NOT EXISTS Account (name text, type text, industry text, rating text, id text)' , function (err, results, fields){
+				pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
+					console.log(err1); 
+					pool.query('CREATE TABLE IF NOT EXISTS Account (name text, type text, industry text, rating text, id text)' , function (err2, results, fields){
+						console.log(err2); 
 						if (!err){
-							pool.query('INSERT INTO Account (' + fieldNames +') VALUES ' + completeResult1);
-							pool.query('SELECT * FROM Account', function (err, rows, fields) {
-								if (!err){
-									console.log ("Data from PG:::::::::::::");
-									//console.log (err);
-									console.log (rows);
+							pool.query('INSERT INTO Account (' + fieldNames +') VALUES ' + completeResult1, function (err3, res){
+								if (err3){
+									console.log ("ERROR" + err3); 
 								}
+								else{
+									pool.query('SELECT * FROM Account', function (err4, rows, fields) {
+										if (!err4){
+											console.log ("Data from PG:::::::::::::");
+											//console.log (err);
+											console.log (rows);
+										}
+									});
+								}
+								pool.end();
 							});
-							pool.end();
+							
 						}
 					});
 				});
