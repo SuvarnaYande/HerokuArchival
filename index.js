@@ -111,8 +111,9 @@ express()
 											//console.log (err);
 											console.log (rows);
 										}
+										pool.end();
 									});
-									pool.end();
+									
 								}
 								
 							});
