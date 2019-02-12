@@ -64,8 +64,8 @@ express()
 					//var finalResult = '('; 
 					for (field in fields){
 						//console.log (arrResult[i]); 
-						console.log (arrResult[i].get(field.trim())); 
-						console.log (arrResult[i][field]); 
+						//console.log (arrResult[i].get(field.trim())); 
+						console.log (arrResult[i][field.trim()]); 
 						//finalResult += arrResult[i][field] + ',';
 					}
 					//finalResult = finalResult.substring (0, finalResult.length - 1) + ')';
