@@ -52,7 +52,7 @@ express()
 				var completeResult = ''; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
 				for (i=0; i<arrResult.length; i++){
-					console.log (arrResult[i]);
+					//console.log (arrResult[i]);
 					console.log (JSON.stringify(arrResult[i]));
 					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
 					//console.log (arrResult[i].json);
@@ -64,7 +64,7 @@ express()
 					//console.log (JSON.parse (results.records[i].json));
 				}*/
 				completeResult = completeResult.substring (0, completeResult.length - 1)
-				console.log (completeResult); 
+				//console.log (completeResult); 
 				console.log('INSERT INTO Account VALUES ' + completeResult); 
 				const client = pool.connect()
 				pool.query('CREATE TABLE IF NOT EXISTS Account (Id varchar (20), name text, type text, industry text, rating text)');
