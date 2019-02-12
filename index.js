@@ -63,7 +63,7 @@ express()
 					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
 					//var finalResult = '('; 
 					for (field in fields){
-						//console.log (arrResult[i]); 
+						console.log (field.trim()); 
 						//console.log (arrResult[i].get(field.trim())); 
 						console.log (arrResult[i][field.trim()]); 
 						//finalResult += arrResult[i][field] + ',';
