@@ -52,7 +52,8 @@ express()
 				//console.log (JSON.parse(JSON.stringify (results.records)).toJSONString());
 				var fieldNames = myQuery.substring(myQuery.indexOf('SELECT') + 6, myQuery.indexOf('FROM')); 
 				console.log (fieldNames); 
-				//var fields = fieldNames.split(','); 
+				var fields = fieldNames.split(','); 
+				console.log (fields); 
 				var completeResult = ''; 
 				//var completeResult1 = ''; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
@@ -61,9 +62,10 @@ express()
 					//console.log (JSON.stringify(arrResult[i]));
 					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
 					//var finalResult = '('; 
-					//for (field in fields){
-					//	finalResult += arrResult[i][field] + ',';
-					//}
+					for (field in fields){
+						console.log (arrResult[i][field]); 
+						//finalResult += arrResult[i][field] + ',';
+					}
 					//finalResult = finalResult.substring (0, finalResult.length - 1) + ')';
 					//completeResult1 += finalResult;
 					//console.log (arrResult[i].json);
