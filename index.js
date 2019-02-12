@@ -45,15 +45,15 @@ express()
 				
 				//console.log ("parseJSON result: " );
 				//console.log ((JSON.stringify (results.records)).parseJSON());
-				console.log ("Array result: " );
-				console.log (JSON.parse(JSON.stringify (results.records)));
+				//console.log ("Array result: " );
+				//console.log (JSON.parse(JSON.stringify (results.records)));
 				//console.log ("toJSONString result: " );
 				//console.log (JSON.parse(JSON.stringify (results.records)).toJSONString());
 				var completeResult; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
 				for (i=0; i<arrResult.length; i++){
 					console.log (arrResult[i]);
-					console.log (arrResult[i].toJSONString());
+					console.log (arrResult[i].toString());
 					console.log (arrResult[i].json);
 				}
 				/*for (i=0; i<results.records.length; i++){
