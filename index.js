@@ -53,8 +53,8 @@ express()
 				var arrResult = JSON.parse(JSON.stringify (results.records));
 				for (i=0; i<arrResult.length; i++){
 					console.log (arrResult[i]);
-					console.log (arrResult[i].toString());
-					console.log (arrResult[i].json);
+					console.log (JSON.stringify(arrResult[i]));
+					//console.log (arrResult[i].json);
 				}
 				/*for (i=0; i<results.records.length; i++){
 					console.log (i);
