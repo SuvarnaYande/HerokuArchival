@@ -54,6 +54,7 @@ express()
 				for (i=0; i<arrResult.length; i++){
 					console.log (arrResult[i]);
 					console.log (JSON.stringify(arrResult[i]));
+					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
 					//console.log (arrResult[i].json);
 				}
 				/*for (i=0; i<results.records.length; i++){
