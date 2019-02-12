@@ -12,7 +12,7 @@ const pool = new Pool({
 });
 
 function oauthCallbackUrl(req) {
-  return req.protocol + '://' + req.get('host');
+  return req.protocol + '://' + req.get('host') + '/archive';
 }
 
 hbs.registerHelper('get', function(field) {
