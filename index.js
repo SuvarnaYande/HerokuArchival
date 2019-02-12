@@ -55,7 +55,7 @@ express()
 				var fields = fieldNames.split(','); 
 				console.log (fields); 
 				var completeResult = ''; 
-				//var completeResult1 = ''; 
+				var completeResult1 = ''; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
 				for (i=0; i<arrResult.length; i++){
 					console.log (arrResult[i]);
