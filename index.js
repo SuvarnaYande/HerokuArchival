@@ -58,13 +58,13 @@ express()
 				//var completeResult1 = ''; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
 				for (i=0; i<arrResult.length; i++){
-					//console.log (arrResult[i]);
+					console.log (arrResult[i]);
 					//console.log (JSON.stringify(arrResult[i]));
 					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
 					//var finalResult = '('; 
 					for (field in fields){
-						console.log (arrResult[i]); 
-						console.log (arrResult[i].get(field)); 
+						//console.log (arrResult[i]); 
+						console.log (arrResult[i].get(field.trim())); 
 						console.log (arrResult[i][field]); 
 						//finalResult += arrResult[i][field] + ',';
 					}
