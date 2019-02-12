@@ -62,10 +62,10 @@ express()
 					//console.log (JSON.stringify(arrResult[i]));
 					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
 					//var finalResult = '('; 
-					for (field in fields){
-						console.log (field.trim()); 
+					for (j=0; j< fields.length; j++){
+						console.log (fields[j].trim()); 
 						//console.log (arrResult[i].get(field.trim())); 
-						console.log (arrResult[i][field.trim()]); 
+						console.log (arrResult[i][fields[j].trim()]); 
 						//finalResult += arrResult[i][field] + ',';
 					}
 					//finalResult = finalResult.substring (0, finalResult.length - 1) + ')';
