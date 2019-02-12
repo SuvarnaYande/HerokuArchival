@@ -51,20 +51,21 @@ express()
 				//console.log ("toJSONString result: " );
 				//console.log (JSON.parse(JSON.stringify (results.records)).toJSONString());
 				var fieldNames = myQuery.substring(myQuery.indexOf('SELECT') + 6, myQuery.indexOf('FROM')); 
-				var fields = fieldNames.split(','); 
+				console.log (fieldNames); 
+				//var fields = fieldNames.split(','); 
 				var completeResult = ''; 
-				var completeResult1 = ''; 
+				//var completeResult1 = ''; 
 				var arrResult = JSON.parse(JSON.stringify (results.records));
 				for (i=0; i<arrResult.length; i++){
 					//console.log (arrResult[i]);
 					//console.log (JSON.stringify(arrResult[i]));
 					completeResult += '(\'' + JSON.stringify(arrResult[i]) + '\'),' ;
-					var finalResult = '('; 
-					for (field in fields){
-						finalResult += arrResult[i][field] + ',';
-					}
-					finalResult = finalResult.substring (0, finalResult.length - 1) + ')';
-					completeResult1 += finalResult;
+					//var finalResult = '('; 
+					//for (field in fields){
+					//	finalResult += arrResult[i][field] + ',';
+					//}
+					//finalResult = finalResult.substring (0, finalResult.length - 1) + ')';
+					//completeResult1 += finalResult;
 					//console.log (arrResult[i].json);
 				}
 				
@@ -77,8 +78,8 @@ express()
 				completeResult = completeResult.substring (0, completeResult.length - 1)
 				//console.log (completeResult); 
 				console.log('INSERT INTO Account VALUES ' + completeResult); 
-				console.log('NEWWWWWWWWWWWWWWWWWWW INSERT INTO Account ' + fieldNames +' VALUES ' + completeResult1); 
-				const client = pool.connect();
+				//console.log('NEWWWWWWWWWWWWWWWWWWW INSERT INTO Account ' + fieldNames +' VALUES ' + completeResult1); 
+				//const client = pool.connect();
 				//pool.query('DROP TABLE IF EXISTS Account');
 				//pool.query('CREATE TABLE IF NOT EXISTS Account (name text, type text, industry text, rating text, id text)');
 				//pool.query('INSERT INTO Account VALUES ' + completeResult);
