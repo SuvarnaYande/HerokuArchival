@@ -31,7 +31,7 @@ express()
 	console.log ("req.query.code:: " +req.query.code );
 	if (req.query.code !== undefined) {
       // authenticated
-	  console.log ("Authentication red code: " + req.query.code );
+	  console.log ("Authentication req code: " + req.query.code );
       org.authenticate(req.query, function(err) {
         if (!err) {
           org.query({ query: 'SELECT id, name, type, industry, rating FROM Account' }, function(err, results) {		  
