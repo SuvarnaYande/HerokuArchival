@@ -101,7 +101,10 @@ express()
 								}
 								else{
 									pool.query('SELECT * FROM Account', function (err4, rows, fields) {
-										if (!err4){
+										if (err4){
+											console.log ("ERROR4" + err4);
+										}
+										else{
 											console.log ("Data from PG:::::::::::::");
 											//console.log (err);
 											console.log (rows);
