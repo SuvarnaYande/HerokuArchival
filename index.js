@@ -21,7 +21,7 @@ hbs.registerHelper('get', function(field) {
 
 express()
   .set('view engine', 'hbs')
-  .get('/archive', (req, res) => {
+  .post('/archive', (req, res) => {
 	  var org = nforce.createConnection({
       clientId: process.env.CONSUMER_KEY,
       clientSecret: process.env.CONSUMER_SECRET,
