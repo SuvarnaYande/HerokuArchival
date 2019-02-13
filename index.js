@@ -23,7 +23,7 @@ express()
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
-	  console.log (req); 
+	  console.log (req.body); 
   })
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
