@@ -21,25 +21,10 @@ hbs.registerHelper('get', function(field) {
 
 express()
   .set('view engine', 'hbs')
-  .post("/sfdcarchive", function(req, res) {
+  .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
 	  console.log (req.body); 
-    var notification = req.body["soapenv:envelope"]["soapenv:body"][0]["notifications"][0];
-	console.log ('notification:: ' + notification); 
-    var sessionId = notification["sessionid"][0];
-	console.log ('sessionId:: ' + sessionId); 
-    /*var data = {};
-    if (notification["notification"] !== undefined) {
-      var sobject = notification["notification"][0]["sobject"][0];
-      Object.keys(sobject).forEach(function(key) {
-        if (key.indexOf("sf:") == 0) {
-          var newKey = key.substr(3);
-          data[newKey] = sobject[key][0];
-        }
-      }); // do something #awesome with the data and sessionId
-    }*/
-    res.status(201).end();
-  }); 
+  })
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
       clientId: process.env.CONSUMER_KEY,
