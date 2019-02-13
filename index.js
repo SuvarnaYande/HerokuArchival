@@ -21,7 +21,10 @@ hbs.registerHelper('get', function(field) {
 
 express()
   .set('view engine', 'hbs')
-  .post('/archive', (req, res) => {
+  .post('/sfdcarchive', (req, res) => {
+	  console.log ('Invoked by SFDC'); 
+  })
+  .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
       clientId: process.env.CONSUMER_KEY,
       clientSecret: process.env.CONSUMER_SECRET,
