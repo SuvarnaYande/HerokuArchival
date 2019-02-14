@@ -20,6 +20,10 @@ hbs.registerHelper('get', function(field) {
 });
 
 express()
+.configure(function(){
+  this.use(express.bodyParser());
+  this.use(this.router);
+})
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
