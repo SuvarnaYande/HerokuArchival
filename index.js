@@ -33,9 +33,9 @@ app
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
-	  console.log ('req::::::::::::::::::' + req); 
-	  console.log ('req query:::::::::::::::: ' + req.query); 
-	console.log ('req body::::::::::::::::: ' + req.body); 
+	  console.log (req); 
+	  console.log (req.query); 
+	console.log (req.body); 
 	  var reqBody = req.body; 
 	  //console.log (reqBody); 
 	  //console.log(reqBody['soapenv:envelope']);
@@ -51,7 +51,7 @@ app
         redirectUri: oauthCallbackUrl(req),
         mode: 'single'
       });
-	  console.log ("req.query.code:: " +req.query.code );
+	  console.log ("req.query.code:: " + req.query.code );
 	  
   })
   .get('/archive', (req, res) => {
@@ -61,9 +61,10 @@ app
       redirectUri: oauthCallbackUrl(req),
       mode: 'single'
     });
-	console.log ('req::: ' + req); 
-	console.log ('req query::: ' + req.query); 
-	console.log ('req body::: ' + req.body); 
+	console.log ('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::'); 
+	console.log (req); 
+	console.log (req.query); 
+	console.log ( req.body); 
 	console.log ("req.query.code:: " +req.query.code );
 	if (req.query.code !== undefined) {
       // authenticated
