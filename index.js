@@ -33,11 +33,14 @@ app
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
-	  console.log (req); 
+	  //console.log (req); 
 	  var reqBody = req.body; 
-	  console.log (reqBody); 
-	  console.log(reqBody['soapenv:envelope']);
+	  //console.log (reqBody); 
+	  //console.log(reqBody['soapenv:envelope']);
 	  //[0].notifications[0].organizationid[0];
+	  console.log ("Org Id: "  + reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].organizationid[0]);
+      console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:id'][0]);
+      console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:Query__c'][0]);
   })
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
