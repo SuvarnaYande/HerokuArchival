@@ -24,7 +24,6 @@ var app = express();
 
 app
   .use(express.bodyParser())
-  .use(app.router)
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
