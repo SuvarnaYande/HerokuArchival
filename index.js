@@ -23,7 +23,7 @@ hbs.registerHelper('get', function(field) {
 var app = express(); 
 
 app
-  .use(express.bodyParser())
+  .use(express.bodyParser.json())
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
