@@ -33,7 +33,7 @@ app
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
-	  //console.log (req); 
+	  console.log (req); 
 	  var reqBody = req.body; 
 	  //console.log (reqBody); 
 	  //console.log(reqBody['soapenv:envelope']);
@@ -50,6 +50,7 @@ app
         mode: 'single'
       });
 	  console.log ("req.query.code:: " +req.query.code );
+	  
   })
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
@@ -58,6 +59,7 @@ app
       redirectUri: oauthCallbackUrl(req),
       mode: 'single'
     });
+	console.log ('req::: ' + req); 
 	console.log ("req.query.code:: " +req.query.code );
 	if (req.query.code !== undefined) {
       // authenticated
