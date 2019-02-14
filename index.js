@@ -30,7 +30,7 @@ app
 	  console.log (req); 
 	  var reqBody = req.body; 
 	  console.log (reqBody); 
-	  console.log(reqBody['soapenv:envelope']['soapenv:body']);
+	  console.log(reqBody['soapenv:envelope']);
 	  //[0].notifications[0].organizationid[0];
   })
   .get('/archive', (req, res) => {
