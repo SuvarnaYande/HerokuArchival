@@ -4,6 +4,7 @@ const nforce = require ('nforce')
 var hbs = require('hbs');
 const PORT = process.env.PORT || 5000
 const JSON = require ('JSON2')
+var bodyParser = require('body-parser')
 
 const { Pool } = require('pg');
 const pool = new Pool({
