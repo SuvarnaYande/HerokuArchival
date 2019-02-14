@@ -42,6 +42,14 @@ app
 	  console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]);
       console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:id'][0]);
       console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:query__c'][0]);
+	  
+	  var org = nforce.createConnection({
+        clientId: process.env.CONSUMER_KEY,
+        clientSecret: process.env.CONSUMER_SECRET,
+        redirectUri: oauthCallbackUrl(req),
+        mode: 'single'
+      });
+	  console.log ("req.query.code:: " +req.query.code );
   })
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
