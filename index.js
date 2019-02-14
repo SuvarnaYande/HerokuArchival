@@ -26,10 +26,10 @@ var app = express();
  
 app
   .use(bodyParser.json())
-  .use(bodyParser.urlencoded({ extended: false }));
-  .use(xmlParser());
-  .use(cookieParser());
-  .use(express.static(path.join(__dirname, 'public')));
+  .use(bodyParser.urlencoded({ extended: false }))
+  .use(xmlParser())
+  .use(cookieParser())
+  .use(express.static(path.join(__dirname, 'public')))
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
