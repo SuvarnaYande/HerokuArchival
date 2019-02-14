@@ -39,6 +39,7 @@ app
 	  //console.log(reqBody['soapenv:envelope']);
 	  //[0].notifications[0].organizationid[0];
 	  console.log ("Org Id: "  + reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].organizationid[0]);
+	  console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]);
       console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:id'][0]);
       console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:Query__c'][0]);
   })
