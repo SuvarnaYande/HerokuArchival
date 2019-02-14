@@ -23,7 +23,7 @@ hbs.registerHelper('get', function(field) {
 var app     = express(); 
 
 app
-  .use(express.bodyParser())
+  .use(require('connect').bodyParser())
   .use(app.router)
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
