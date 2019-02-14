@@ -25,7 +25,10 @@ var app = express();
 
 var router = express.Router();
 
-router.post('/sfdcarchive', (req, res) => {
+  
+app
+  .set('view engine', 'hbs')
+  .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
 	  console.log (req); 
 	  var reqBody = req.body; 
@@ -33,9 +36,6 @@ router.post('/sfdcarchive', (req, res) => {
 	  console.log(reqBody['soapenv:envelope']);
 	  //[0].notifications[0].organizationid[0];
   })
-  
-app
-  .set('view engine', 'hbs')
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
       clientId: process.env.CONSUMER_KEY,
