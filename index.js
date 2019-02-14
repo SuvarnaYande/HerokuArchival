@@ -5,6 +5,7 @@ var hbs = require('hbs');
 const PORT = process.env.PORT || 5000
 const JSON = require ('JSON2')
 var bodyParser = require('body-parser')
+var _ = require("lodash");
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -22,10 +23,9 @@ hbs.registerHelper('get', function(field) {
 
 var app = express(); 
 
-app
-  .use(bodyParser.text())
-  .set('view engine', 'hbs')
-  .post('/sfdcarchive', (req, res) => {
+var router = express.Router();
+
+router.post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC'); 
 	  console.log (req); 
 	  var reqBody = req.body; 
@@ -33,6 +33,9 @@ app
 	  console.log(reqBody['soapenv:envelope']);
 	  //[0].notifications[0].organizationid[0];
   })
+  
+app
+  .set('view engine', 'hbs')
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
       clientId: process.env.CONSUMER_KEY,
