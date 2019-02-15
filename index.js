@@ -35,7 +35,7 @@ app
 	  console.log ('Invoked by SFDC'); 
 	  console.log (req); 
 	  console.log (req.query); 
-	console.log (req.body); 
+	  console.log (req.body); 
 	  var reqBody = req.body; 
 	  //console.log (reqBody); 
 	  //console.log(reqBody['soapenv:envelope']);
@@ -65,6 +65,7 @@ app
 	console.log (req); 
 	console.log (req.query); 
 	console.log ( req.body); 
+	console.log ( req.body['soapenv:envelope']); 
 	console.log ("req.query.code:: " +req.query.code );
 	if (req.query.code !== undefined) {
       // authenticated
