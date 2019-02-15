@@ -5,8 +5,6 @@ var hbs = require('hbs');
 const PORT = process.env.PORT || 5000
 const JSON = require ('JSON2')
 var bodyParser = require('body-parser')
-var xmlParser = require('express-xml-bodyparser')
-var cookieParser = require('cookie-parser');
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -23,36 +21,17 @@ hbs.registerHelper('get', function(field) {
 });
 
 var app = express(); 
- 
+
 app
   .use(bodyParser.json())
-  .use(bodyParser.urlencoded({ extended: false }))
-  .use(xmlParser())
-  .use(cookieParser())
-  .use(express.static(path.join(__dirname, 'public')))
   .set('view engine', 'hbs')
   .post('/sfdcarchive', (req, res) => {
-	  console.log ('Invoked by SFDC'); 
-	  console.log (req); 
-	  console.log (req.query); 
-	  console.log (req.body); 
+	  console.log ('Invoked by SFDC::::'); 
+	  console.log (req.query.code); 
 	  var reqBody = req.body; 
-	  //console.log (reqBody); 
-	  //console.log(reqBody['soapenv:envelope']);
+	  console.log (reqBody); 
+	  console.log(reqBody['soapenv:envelope']['soapenv:body']);
 	  //[0].notifications[0].organizationid[0];
-	  console.log ("Org Id: "  + reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].organizationid[0]);
-	  console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]);
-      console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:id'][0]);
-      console.log(reqBody['soapenv:envelope']['soapenv:body'][0].notifications[0].notification[0].sobject[0]['sf:query__c'][0]);
-	  
-	  var org = nforce.createConnection({
-        clientId: process.env.CONSUMER_KEY,
-        clientSecret: process.env.CONSUMER_SECRET,
-        redirectUri: oauthCallbackUrl(req),
-        mode: 'single'
-      });
-	  console.log ("req.query.code:: " + req.query.code );
-	  
   })
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
@@ -61,15 +40,12 @@ app
       redirectUri: oauthCallbackUrl(req),
       mode: 'single'
     });
-	console.log ('::::::::::::::::::::::::::::::::::::::::::::::::::::::::::'); 
-	console.log (req); 
-	console.log (req.query); 
-	console.log ( req.body); 
-	console.log ( req.body['soapenv:envelope']); 
-	console.log ("req.query.code:: " +req.query.code );
+	console.log ('Direct Hit:::::');
+	console.log (req.query.code );
+	console.log (req.body );
+	console.log(req.body['soapenv:envelope']['soapenv:body']);
 	if (req.query.code !== undefined) {
       // authenticated
-	  console.log ("Authentication req code: " + req.query.code );
       org.authenticate(req.query, function(err) {
         if (!err) {
 		  var myQuery = 'SELECT id, name, type, industry, rating FROM Account'; 
