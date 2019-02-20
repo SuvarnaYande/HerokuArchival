@@ -50,7 +50,7 @@ app
     }
     finalResult = finalResult.substring (0, finalResult.length - 1); 
     console.log('INSERT INTO Account (' + columns.join() +') VALUES ' + finalResult); 
-    
+    console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
   
 	  
 	const client = pool.connect();
