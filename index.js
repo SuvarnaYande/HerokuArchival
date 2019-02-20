@@ -31,25 +31,34 @@ app
 	  var reqBody = req.body; 
 	  console.log (reqBody);
 	  
-	  var records = reqBody.records;
+	var records = reqBody.records;
     var metadata = reqBody.metadata;
     var finalResult = '';
-    var columns = Object.keys(reqBody.records[0]); 
-    columns.shift();
-    console.log (columns.join()); 
-    
+        
+    var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.indexOf(')')); 
+    console.log (fieldList);
+    var fieldArr = [];//fieldList.split(',');
+   // console.log (fieldArr);
+    //var fieldMap = new Object();
+    for (i=0; i<fieldList.split(',').length; i++){
+    fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0];
+      // console.log(fieldArr[i].trim());
+       //fieldMap[fieldArr[i].trim().split(' ')[0]] = fieldArr[i].trim().split(' ')[1];
+    }
+    console.log(fieldArr);
     for (i=0; i<records.length; i++){
-        var value = Object.values(records[i]); 
-        value.shift();
+        //var value = Object.values(records[i]); 
+        //value.shift();
         var result = '(';
-        for (j =0; j<value.length; j++){
-            result += '\'' + value[j] +  '\',';
+        for (j =0; j<fieldArr.length; j++){
+            result += '\'' + records[i][fieldArr[j].trim()] +  '\',';
         }
         result = result.substring (0, result.length - 1) + ')';
         finalResult += result + ',';
     }
+	
     finalResult = finalResult.substring (0, finalResult.length - 1); 
-    console.log('INSERT INTO Account (' + columns.join() +') VALUES ' + finalResult); 
+    console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult); 
     console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  
 	const client = pool.connect();
