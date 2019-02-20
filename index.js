@@ -29,10 +29,7 @@ app
 	  console.log ('Invoked by SFDC::::'); 
 	  console.log (req.query.code); 
 	  var reqBody = req.body; 
-	  console.log (reqBody); 
-	  console.log (reqBody.length);
-	  console.log (Object.keys(reqBody[0]));
-	  console.log(reqBody['soapenv:envelope']['soapenv:body']);
+	  console.log (reqBody);
 	  //[0].notifications[0].organizationid[0];
   })
   .get('/archive', (req, res) => {
