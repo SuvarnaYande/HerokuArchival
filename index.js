@@ -51,7 +51,6 @@ app
     finalResult = finalResult.substring (0, finalResult.length - 1); 
     console.log('INSERT INTO Account (' + columns.join() +') VALUES ' + finalResult); 
     console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
-  
 	  
 	const client = pool.connect();
 	pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
@@ -75,7 +74,7 @@ app
 								//console.log (err);
 								console.log (rows);
 							}
-							pool.end();
+							//pool.end();
 						});
 									
 					}
