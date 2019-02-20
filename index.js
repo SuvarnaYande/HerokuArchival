@@ -34,9 +34,9 @@ app
 	  var records = reqBody.records;
     var metadata = reqBody.metadata;
     var finalResult = '';
-    var fields = Object.keys(reqBody.records[0]); 
-    fields.shift();
-    console.log (fields.join()); 
+    var columns = Object.keys(reqBody.records[0]); 
+    columns.shift();
+    console.log (columns.join()); 
     
     for (i=0; i<records.length; i++){
         var value = Object.values(records[i]); 
@@ -59,7 +59,7 @@ app
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
 			console.log(err2); 
 			if (!err2){
-				pool.query('INSERT INTO Account (' + fields.join() +') VALUES ' + finalResult, function (err3, res){
+				pool.query('INSERT INTO Account (' + columns.join() +') VALUES ' + finalResult, function (err3, res){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
