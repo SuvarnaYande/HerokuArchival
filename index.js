@@ -30,7 +30,61 @@ app
 	  console.log (req.query.code); 
 	  var reqBody = req.body; 
 	  console.log (reqBody);
-	  //[0].notifications[0].organizationid[0];
+	  
+	  var records = reqBody.records;
+    var metadata = reqBody.metadata;
+    var finalResult = '';
+    var fields = Object.keys(reqBody.records[0]); 
+    fields.shift();
+    console.log (fields.join()); 
+    
+    for (i=0; i<records.length; i++){
+        var value = Object.values(records[i]); 
+        value.shift();
+        var result = '(';
+        for (j =0; j<value.length; j++){
+            result += '\'' + value[j] +  '\',';
+        }
+        result = result.substring (0, result.length - 1) + ')';
+        finalResult += result + ',';
+    }
+    finalResult = finalResult.substring (0, finalResult.length - 1); 
+    console.log(finalResult); 
+    
+  
+	  
+	const client = pool.connect();
+	pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
+		console.log(err1); 
+		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
+			console.log(err2); 
+			if (!err){
+				pool.query('INSERT INTO Account (' + fields.join() +') VALUES ' + finalResult, function (err3, res){
+					if (err3){
+						console.log ("ERROR" + err3); 
+					}
+					else{
+						console.log ("successful insertion");
+						pool.query('SELECT * FROM Account', function (err4, rows, fields) {
+							console.log ("Select err4:: " + err4);
+							if (err4){
+								console.log ("ERROR4" + err4);
+							}
+							else{
+								console.log ("Data from PG:::::::::::::");
+								//console.log (err);
+								console.log (rows);
+							}
+							pool.end();
+						});
+									
+					}
+					
+				});
+							
+			}
+		});
+	});
   })
   .get('/archive', (req, res) => {
 	  var org = nforce.createConnection({
