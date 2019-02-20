@@ -31,6 +31,7 @@ app
 	  var reqBody = req.body; 
 	  console.log (reqBody); 
 	  console.log (reqBody.length);
+	  console.log (Object.keys(reqBody[0]));
 	  console.log(reqBody['soapenv:envelope']['soapenv:body']);
 	  //[0].notifications[0].organizationid[0];
   })
