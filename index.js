@@ -51,7 +51,8 @@ app
         //value.shift();
         var result = '(';
         for (j =0; j<fieldArr.length; j++){
-            result += '\'' + records[i][fieldArr[j].trim()] +  '\',';
+            var fldVal = records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '';
+            result += '\'' +fldVal +  '\',';
         }
         result = result.substring (0, result.length - 1) + ')';
         finalResult += result + ',';
