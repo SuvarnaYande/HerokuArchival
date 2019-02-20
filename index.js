@@ -49,7 +49,7 @@ app
         finalResult += result + ',';
     }
     finalResult = finalResult.substring (0, finalResult.length - 1); 
-    console.log(finalResult); 
+    console.log('INSERT INTO Account (' + columns.join() +') VALUES ' + finalResult); 
     
   
 	  
