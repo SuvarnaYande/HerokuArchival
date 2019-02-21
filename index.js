@@ -69,7 +69,8 @@ app
 								console.log (rows);
 							}
 							//pool.end();
-						});				
+						});	
+						res.status(201).end();
 					}
 				});					
 			}
