@@ -60,6 +60,8 @@ app
 					else{
 						console.log ("successful insertion");
 						console.log (res);
+						res.append('status', '200');
+						res.end();
 						pool.query('SELECT * FROM Account', function (err4, rows, fields) {
 							//console.log ("Select err4:: " + err4);
 							if (err4){
