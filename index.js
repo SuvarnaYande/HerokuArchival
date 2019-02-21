@@ -72,6 +72,7 @@ app
 							//pool.end();
 						});	
 						//res.status(201).end();
+						res.status(200).json({"message":"successful"});
 					}
 				});					
 			}
