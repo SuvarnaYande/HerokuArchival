@@ -61,14 +61,14 @@ app
 						console.log ("successful insertion");
 						console.log (res);
 						pool.query('SELECT * FROM Account', function (err4, rows, fields) {
-							console.log ("Select err4:: " + err4);
+							//console.log ("Select err4:: " + err4);
 							if (err4){
 								console.log ("ERROR4" + err4);
 							}
 							else{
-								console.log ("Data from PG:::::::::::::");
+								//console.log ("Data from PG:::::::::::::");
 								//console.log (err);
-								console.log (rows);
+								//console.log (rows);
 							}
 							//pool.end();
 						});	
