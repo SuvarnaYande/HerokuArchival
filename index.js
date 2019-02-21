@@ -59,6 +59,7 @@ app
 					}
 					else{
 						console.log ("successful insertion");
+						console.log (res);
 						pool.query('SELECT * FROM Account', function (err4, rows, fields) {
 							console.log ("Select err4:: " + err4);
 							if (err4){
@@ -72,7 +73,8 @@ app
 							//pool.end();
 						});	
 						//res.status(201).end();
-						res.status(200).json({"message":"successful"});
+						
+						//res.status(200).json({"message":"successful"});
 					}
 				});					
 			}
