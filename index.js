@@ -53,7 +53,7 @@ app
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
 			console.log(err2); 
 			if (!err2){
-				pool.query('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult, function (err3, res){
+				pool.query('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult, function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
