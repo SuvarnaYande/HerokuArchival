@@ -3,7 +3,6 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
 const basicAuth = require('basic-auth')
-module.exports = basicAuth({ users: { 'admin': 'supersecret' } })
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -72,7 +71,7 @@ app
 							}
 							//pool.end();
 						});	
-						res.status(201).end();
+						//res.status(201).end();
 					}
 				});					
 			}
