@@ -16,7 +16,7 @@ var app = express();
 app
   .use(bodyParser.json())
   .post('/sfdcarchive', (req, res) => {
-	  console.log ('Invoked by SFDC::::'); 
+	  console.log ('Invoked by SFDC::::::'); 
 	  console.log (req.query.code); 
 	  var reqBody = req.body; 
 	  console.log (reqBody);
