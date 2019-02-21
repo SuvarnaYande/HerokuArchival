@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
+const basicAuth = require('basic-auth')
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -14,7 +15,7 @@ var app = express();
 
 app
   .use(bodyParser.json())
-  .post('/sfdcarchive', function (req, res) {
+  .post('/sfdcarchive', (req, res) => {
 	  console.log ('Invoked by SFDC::::'); 
 	  console.log (req.query.code); 
 	  var reqBody = req.body; 
