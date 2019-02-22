@@ -4,6 +4,8 @@ const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
 const basicAuth = require('basic-auth')
 
+module.exports = basicAuth({ users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' } })
+
 const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
