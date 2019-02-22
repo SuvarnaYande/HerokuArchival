@@ -12,14 +12,16 @@ const pool = new Pool({
   ssl: true
 });
 
-
+function myAuthorizer(username, password){
+	console.log (username);
+	console.log (password);
+	return true; 
+}
 var app = express(); 
 
 app
   .use(bodyParser.json())
-  .use(basicAuth({
-    users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' }
-  }))
+  .use(basicAuth( { authorizer: myAuthorizer } ))
   .post('/sfdcarchive', function (req, res) {
 	  console.log ('Invoked by SFDC::::::'); 
 	  console.log (req.query.code); 
