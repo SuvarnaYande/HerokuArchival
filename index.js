@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
 const basicAuth = require('basic-auth')
 
-module.exports = basicAuth({ users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' } })
+//module.exports = basicAuth({ users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' } })
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -17,6 +17,9 @@ var app = express();
 
 app
   .use(bodyParser.json())
+  .use(basicAuth({
+    users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' }
+  }))
   .post('/sfdcarchive', function (req, res) {
 	  console.log ('Invoked by SFDC::::::'); 
 	  console.log (req.query.code); 
