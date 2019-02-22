@@ -13,6 +13,7 @@ const pool = new Pool({
 });
 
 function myAuthorizer(username, password){
+	console.log ('1');
 	console.log (username);
 	console.log (password);
 	return true; 
