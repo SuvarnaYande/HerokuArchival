@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
-const basicAuth = require('basic-auth')
+const basicAuth = require('express-basic-auth')
 
 //module.exports = basicAuth({ users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' } })
 
