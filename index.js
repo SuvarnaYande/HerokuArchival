@@ -31,6 +31,7 @@ app
 	  
 	  var records = reqBody.records;
       var metadata = reqBody.metadata;
+	  var insertFields = metadata; 
       var finalResult = '';
         
       var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.indexOf(')')); 
@@ -38,7 +39,14 @@ app
       var fieldArr = [];//fieldList.split(',');
    
       for (i=0; i<fieldList.split(',').length; i++){
-        fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0];
+        //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
+		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
+        fieldArr[i]=colHeader.split(':')[0];
+        insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), ''); 
+        if (colHeader.indexOf(':') > 0){
+          metadata = metadata.replace(fieldArr[i] + ':', '');
+          insertFields  = insertFields.replace(fieldArr[i] + ':', '');
+        }
       }
       console.log(fieldArr);
       for (i=0; i<records.length; i++){
@@ -56,12 +64,12 @@ app
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  
 	  const client = pool.connect();
-	  pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
+	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		console.log(err1); 
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
 			console.log(err2); 
 			if (!err2){
-				pool.query('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult, function (err3, result){
+				pool.query('INSERT INTO Account (' + insertFields +') VALUES ' + finalResult, function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
@@ -89,6 +97,6 @@ app
 				});					
 			}
 		});
-	});
+	//});
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
