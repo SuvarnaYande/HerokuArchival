@@ -65,9 +65,10 @@ app
 	  
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
-		console.log(err1); 
+		//console.log(err1); 
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
 			console.log(err2); 
+			console.log(results);
 			if (!err2){
 				pool.query('INSERT INTO Account (' + insertFields +') VALUES ' + finalResult, function (err3, result){
 					if (err3){
