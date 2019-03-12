@@ -64,13 +64,13 @@ app
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  
 	  const client = pool.connect();
-	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
+	  pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
 			console.log(err2); 
 			console.log(results);
 			if (!err2){
-				pool.query('INSERT INTO Account (' + insertFields +') VALUES ' + finalResult, function (err3, result){
+				pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult, function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
@@ -98,6 +98,6 @@ app
 				});					
 			}
 		});
-	//});
+	});
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
