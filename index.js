@@ -45,11 +45,11 @@ app
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         fieldArr[i]=colHeader.split(':')[0];
         insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), ''); 
-		insertFieldArr[i]=fieldArr[i];
+		insertFieldArr[i]=fieldList.split(',')[i];
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
           insertFields  = insertFields.replace(fieldArr[i] + ':', '');
-		  insertFieldArr[i]=colHeader.split(':')[1];
+		  insertFieldArr[i]=insertFieldArr[i].replace(fieldArr[i] + ':', '');
         }
       }
       console.log(fieldArr);
@@ -79,7 +79,7 @@ app
 				pool.query ('IF COL_LENGTH(\'' + tableName + '\', 'CreateDate') IS NULL BEGIN ALTER TABLE ACCOUNT ADD  Exists END');
 			}*/
 			if (!err2){
-				pool.query ('ALTER TABLE Account ADD COLUMN IF NOT EXISTS CreatedDate timestamp', function (er, results, fields){
+				pool.query ('ALTER TABLE Account ADD COLUMN IF NOT EXISTS ' + insertFieldArr.join(), function (er, results, fields){
 					console.log (er);
 					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult, function (err3, result){
 					if (err3){
