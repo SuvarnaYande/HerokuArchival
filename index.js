@@ -71,7 +71,7 @@ app
       }
 	  
       //finalResult = finalResult.substring (0, finalResult.length - 1); 
-      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) SET ' + upsertFieldArr.join()); 
+      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join()); 
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  
 	  const client = pool.connect();
@@ -88,7 +88,7 @@ app
 			if (!err2){
 				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr.join(), function (er, results, fields){
 					console.log (er);
-					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) SET ' + upsertFieldArr.join(), function (err3, result){
+					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join(), function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
