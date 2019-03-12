@@ -80,6 +80,7 @@ app
 			}*/
 			if (!err2){
 				pool.query ('IF COL_LENGTH(\'Account\', \'CreatedDate\') IS NULL BEGIN ALTER TABLE ACCOUNT ADD CreatedDate timeStamp END', function (er, results, fields){
+					console.log (er);
 					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult, function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
