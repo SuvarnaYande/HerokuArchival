@@ -64,14 +64,14 @@ app
         for (j =0; j<fieldArr.length; j++){
 			//recordVal[j] = '\'' + records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '' + '\'';
             var fldVal = records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '';
-            recordVal[j] = '\'' +fldVal +  '\',';
+            recordVal[j] = '\'' +fldVal +  '\'';
         }
         //result = result.substring (0, result.length - 1) + ')';
         finalResult[i] = '('+ recordVal[j] +')';
       }
 	  
       //finalResult = finalResult.substring (0, finalResult.length - 1); 
-      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join()); 
+      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) SET ' + upsertFieldArr.join()); 
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  
 	  const client = pool.connect();
