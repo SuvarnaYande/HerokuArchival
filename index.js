@@ -35,17 +35,21 @@ app
       var finalResult = '';
         
       var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.indexOf(')')); 
+	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
       console.log (fieldList);
       var fieldArr = [];//fieldList.split(',');
+	  var insertFieldArr = []
    
       for (i=0; i<fieldList.split(',').length; i++){
         //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         fieldArr[i]=colHeader.split(':')[0];
         insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), ''); 
+		insertFieldArr[i]=fieldArr[i];
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
           insertFields  = insertFields.replace(fieldArr[i] + ':', '');
+		  insertFieldArr[i]=colHeader.split(':')[1];
         }
       }
       console.log(fieldArr);
@@ -69,8 +73,14 @@ app
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
 			console.log(err2); 
 			console.log(results);
+			
+			
+			/*for (i=0; i<insertFieldArr.length; i++){
+				pool.query ('IF COL_LENGTH(\'' + tableName + '\', 'CreateDate') IS NULL BEGIN ALTER TABLE ACCOUNT ADD  Exists END');
+			}*/
 			if (!err2){
-				pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult, function (err3, result){
+				pool.query ('IF COL_LENGTH('Account', 'CreateDate') IS NULL BEGIN ALTER TABLE ACCOUNT ADD CreateDate timeStamp Exists END', function (er, results, fields){
+					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult, function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
@@ -95,7 +105,9 @@ app
 						
 						//res.status(200).json({"message":"successful"});
 					}
-				});					
+				});
+				});
+									
 			}
 		});
 	//});
