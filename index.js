@@ -86,19 +86,21 @@ app
 						console.log ("ERROR" + err3); 
 					}
 					else{
-						console.log ("successful insertion");
-						console.log (res);
-						res.status(200);
-						res.end();
+						//console.log ("successful insertion");
+						//console.log (res);
+						//res.status(200);
+						//res.end();
 						pool.query('SELECT * FROM Account', function (err4, rows, fields) {
 							//console.log ("Select err4:: " + err4);
 							if (err4){
 								console.log ("ERROR4" + err4);
 							}
 							else{
-								//console.log ("Data from PG:::::::::::::");
+								console.log ("Data from PG:::::::::::::");
 								//console.log (err);
-								//console.log (rows);
+								console.log (rows);
+								res.status(200);
+						res.end();
 							}
 							//pool.end();
 						});	
