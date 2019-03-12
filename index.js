@@ -79,7 +79,7 @@ app
 				pool.query ('IF COL_LENGTH(\'' + tableName + '\', 'CreateDate') IS NULL BEGIN ALTER TABLE ACCOUNT ADD  Exists END');
 			}*/
 			if (!err2){
-				pool.query ('ALTER TABLE Account ADD COLUMN IF NOT EXISTS ' + insertFieldArr.join(), function (er, results, fields){
+				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr.join(), function (er, results, fields){
 					console.log (er);
 					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult, function (err3, result){
 					if (err3){
