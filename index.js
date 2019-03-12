@@ -67,7 +67,7 @@ app
             recordVal[j] = '\'' +fldVal +  '\'';
         }
         //result = result.substring (0, result.length - 1) + ')';
-        finalResult[i] = '('+ recordVal[j] +')';
+        finalResult[i] = '('+ recordVal.join() +')';
       }
 	  
       //finalResult = finalResult.substring (0, finalResult.length - 1); 
