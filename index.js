@@ -32,39 +32,46 @@ app
 	  var records = reqBody.records;
       var metadata = reqBody.metadata;
 	  var insertFields = metadata; 
-      var finalResult = '';
+      var finalResult = [];
         
       var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.indexOf(')')); 
 	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
       console.log (fieldList);
       var fieldArr = [];//fieldList.split(',');
-	  var insertFieldArr = []
-   
+	  var insertFieldArr = [];
+	  var upsertFieldArr = [];
       for (i=0; i<fieldList.split(',').length; i++){
         //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         fieldArr[i]=colHeader.split(':')[0];
         insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), ''); 
 		insertFieldArr[i]='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i];
+		upsertFieldArr[i] = fieldArr[i] +'=EXCLUDED.'+fieldArr[i];
+		
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
           insertFields  = insertFields.replace(fieldArr[i] + ':', '');
 		  insertFieldArr[i]=insertFieldArr[i].replace(fieldArr[i] + ':', '');
+		  upsertFieldArr[i] = colHeader.split(':')[1] +'=EXCLUDED.'+colHeader.split(':')[1];
         }
       }
       console.log(fieldArr);
-      for (i=0; i<records.length; i++){
-        var result = '(';
-        for (j =0; j<fieldArr.length; j++){
-            var fldVal = records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '';
-            result += '\'' +fldVal +  '\',';
-        }
-        result = result.substring (0, result.length - 1) + ')';
-        finalResult += result + ',';
-      }
+
 	
-      finalResult = finalResult.substring (0, finalResult.length - 1); 
-      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult); 
+	  for (i=0; i<records.length; i++){
+        var result = '(';
+		var recordVal = []; 
+        for (j =0; j<fieldArr.length; j++){
+			//recordVal[j] = '\'' + records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '' + '\'';
+            var fldVal = records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '';
+            recordVal[j] = '\'' +fldVal +  '\',';
+        }
+        //result = result.substring (0, result.length - 1) + ')';
+        finalResult[i] = '('+ recordVal[j] +')';
+      }
+	  
+      //finalResult = finalResult.substring (0, finalResult.length - 1); 
+      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join()); 
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  
 	  const client = pool.connect();
@@ -81,13 +88,14 @@ app
 			if (!err2){
 				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr.join(), function (er, results, fields){
 					console.log (er);
-					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult, function (err3, result){
+					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) SET ' + upsertFieldArr.join(), function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
 					else{
 						//console.log ("successful insertion");
 						//console.log (res);
+						//TODO: Correct place for res.End(); 
 						//res.status(200);
 						//res.end();
 						pool.query('SELECT * FROM Account', function (err4, rows, fields) {
@@ -99,6 +107,7 @@ app
 								console.log ("Data from PG:::::::::::::");
 								//console.log (err);
 								console.log (rows);
+								//TODO: below 2 lines are only for testing. Needs to be removed.
 								res.status(200);
 						res.end();
 							}
