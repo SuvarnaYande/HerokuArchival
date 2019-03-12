@@ -45,7 +45,7 @@ app
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         fieldArr[i]=colHeader.split(':')[0];
         insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), ''); 
-		insertFieldArr[i]=fieldList.split(',')[i];
+		insertFieldArr[i]='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i];
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
           insertFields  = insertFields.replace(fieldArr[i] + ':', '');
