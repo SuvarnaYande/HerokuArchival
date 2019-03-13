@@ -77,7 +77,7 @@ app
       }
 	  
       //finalResult = finalResult.substring (0, finalResult.length - 1); 
-      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr); 
+      console.log('INSERT INTO ' + insertFields.join() +' VALUES ' + finalResult.join()  + ' ON CONFLICT (Id) DO UPDATE SET ' + upsertFieldArr); 
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  console.log ('ALTER TABLE ' + tableName + ' ' + insertFieldArr); 
 	  const client = pool.connect();
