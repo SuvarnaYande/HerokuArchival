@@ -57,6 +57,7 @@ app
         }
       }
       console.log(fieldArr);
+	  insertFields = insertFields.replace ('Primary Key' , ''); 
 	  insertFieldArr = insertFieldArr.substring (0, insertFieldArr.length - 1);
       upsertFieldArr = upsertFieldArr.substring (0, upsertFieldArr.length - 1)
 	  
