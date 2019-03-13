@@ -87,6 +87,7 @@ app
 			}*/
 			if (!err2){
 				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr.join(), function (er, results, fields){
+					console.log ('ALTER ERR');
 					console.log (er);
 					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join(), function (err3, result){
 					if (err3){
