@@ -39,7 +39,7 @@ app
       console.log (fieldList);
       var fieldArr = [];//fieldList.split(',');
 	  var insertFieldArr = '';
-	  var upsertFieldArr = [];
+	  var upsertFieldArr = '';
       for (i=0; i<fieldList.split(',').length; i++){
         //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
@@ -49,17 +49,18 @@ app
 			insertFieldArr +='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i] + ',';
 		}
 		
-		upsertFieldArr[i] = fieldArr[i] +'=EXCLUDED.'+fieldArr[i];
+		upsertFieldArr += fieldArr[i] +'=EXCLUDED.'+fieldArr[i] + ',';
 		
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
           insertFields  = insertFields.replace(fieldArr[i] + ':', '');
-		  upsertFieldArr[i] = colHeader.split(':')[1] +'=EXCLUDED.'+colHeader.split(':')[1];
+		  //upsertFieldArr[i] = colHeader.split(':')[1] +'=EXCLUDED.'+colHeader.split(':')[1];
         }
       }
       console.log(fieldArr);
 	  insertFieldArr = insertFieldArr.substring (0, insertFieldArr.length - 1);
-      	
+      upsertFieldArr = upsertFieldArr.substring (0, upsertFieldArr.length - 1)
+	  
 	  for (i=0; i<records.length; i++){
         var result = '(';
 		var recordVal = []; 
@@ -73,7 +74,7 @@ app
       }
 	  
       //finalResult = finalResult.substring (0, finalResult.length - 1); 
-      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join()); 
+      console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr); 
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  console.log ('ALTER TABLE ' + tableName + ' ' + insertFieldArr); 
 	  const client = pool.connect();
@@ -91,7 +92,7 @@ app
 				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr, function (er, results, fields){
 					console.log ('ALTER ERR');
 					console.log (er);
-					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join(), function (err3, result){
+					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr, function (err3, result){
 					if (err3){
 						console.log ("ERROR" + err3); 
 					}
