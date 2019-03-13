@@ -44,14 +44,19 @@ app
         //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         fieldArr[i]=colHeader.split(':')[0];
-        insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), ''); 
-		insertFieldArr[i]='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i];
+        insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), '');
+		if (fieldList.split(',').indexOf('Primary Key') < 0){
+			insertFieldArr[i]='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i];
+		}
+		
 		upsertFieldArr[i] = fieldArr[i] +'=EXCLUDED.'+fieldArr[i];
 		
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
           insertFields  = insertFields.replace(fieldArr[i] + ':', '');
-		  insertFieldArr[i]=insertFieldArr[i].replace(fieldArr[i] + ':', '');
+		  if (insertFieldArr[i]){
+			insertFieldArr[i]=insertFieldArr[i].replace(fieldArr[i] + ':', '');
+		  }
 		  upsertFieldArr[i] = colHeader.split(':')[1] +'=EXCLUDED.'+colHeader.split(':')[1];
         }
       }
