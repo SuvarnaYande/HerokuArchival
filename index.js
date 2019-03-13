@@ -31,10 +31,10 @@ app
 	  
 	  var records = reqBody.records;
       var metadata = reqBody.metadata;
-	  var insertFields = metadata; 
+	  var insertFields = []; 
       var finalResult = [];
         
-      var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.indexOf(')')); 
+      var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.lastIndexOf(')')); 
 	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
       console.log (fieldList);
       var fieldArr = [];//fieldList.split(',');
@@ -44,7 +44,8 @@ app
         //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         fieldArr[i]=colHeader.split(':')[0];
-        insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), '');
+		insertFields[i] = colHeader.split(':')[0];
+        //insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), '');
 		if (fieldList.split(',')[i].indexOf('Primary Key') < 0){
 			insertFieldArr +='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i] + ',';
 			upsertFieldArr += fieldArr[i] +'=EXCLUDED.'+fieldArr[i] + ',';
@@ -52,13 +53,14 @@ app
 		
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
-          insertFields  = insertFields.replace(fieldArr[i] + ':', '');
+		  insertFields[i]  = insertFields[i].replace(fieldArr[i] + ':', '');
+          //insertFields  = insertFields.replace(fieldArr[i] + ':', '');
 		  //upsertFieldArr[i] = colHeader.split(':')[1] +'=EXCLUDED.'+colHeader.split(':')[1];
         }
       }
       console.log(fieldArr);
-	  insertFields = insertFields.replace ('Primary Key' , ''); 
-	  insertFields = insertFields.replace ('FOREIGN Key' , ''); 
+	  //insertFields = insertFields.replace ('Primary Key' , ''); 
+	  //insertFields = insertFields.replace ('FOREIGN Key' , ''); 
 	  insertFieldArr = insertFieldArr.substring (0, insertFieldArr.length - 1);
       upsertFieldArr = upsertFieldArr.substring (0, upsertFieldArr.length - 1)
 	  
@@ -93,7 +95,7 @@ app
 				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr, function (er, results, fields){
 					console.log ('ALTER ERR');
 					console.log (er);
-					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (Id) DO UPDATE SET ' + upsertFieldArr, function (err3, result){
+					pool.query('INSERT INTO ' + insertFields.join() +' VALUES ' + finalResult.join()  + ' ON CONFLICT (Id) DO UPDATE SET ' + upsertFieldArr, function (err3, result){
 					if (err3){
 						console.log ("ERROR:: " + err3); 
 					}
