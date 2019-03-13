@@ -38,7 +38,7 @@ app
 	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
       console.log (fieldList);
       var fieldArr = [];//fieldList.split(',');
-	  var insertFieldArr = [];
+	  var insertFieldArr = '';
 	  var upsertFieldArr = [];
       for (i=0; i<fieldList.split(',').length; i++){
         //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
@@ -46,7 +46,7 @@ app
         fieldArr[i]=colHeader.split(':')[0];
         insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), '');
 		if (fieldList.split(',')[i].indexOf('Primary Key') < 0){
-			insertFieldArr[i]='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i];
+			insertFieldArr +='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i] + ',';
 		}
 		
 		upsertFieldArr[i] = fieldArr[i] +'=EXCLUDED.'+fieldArr[i];
@@ -54,14 +54,11 @@ app
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
           insertFields  = insertFields.replace(fieldArr[i] + ':', '');
-		  if (insertFieldArr[i]){
-			insertFieldArr[i]=insertFieldArr[i].replace(fieldArr[i] + ':', '');
-		  }
 		  upsertFieldArr[i] = colHeader.split(':')[1] +'=EXCLUDED.'+colHeader.split(':')[1];
         }
       }
       console.log(fieldArr);
-
+	  insertFieldArr = insertFieldArr.substring (0, insertFieldArr.length - 1);
       	
 	  for (i=0; i<records.length; i++){
         var result = '(';
@@ -78,7 +75,7 @@ app
       //finalResult = finalResult.substring (0, finalResult.length - 1); 
       console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join()); 
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
-	  console.log ('ALTER TABLE ' + tableName + ' ' + insertFieldArr.join()); 
+	  console.log ('ALTER TABLE ' + tableName + ' ' + insertFieldArr); 
 	  const client = pool.connect();
 	  pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
@@ -91,7 +88,7 @@ app
 				pool.query ('IF COL_LENGTH(\'' + tableName + '\', 'CreateDate') IS NULL BEGIN ALTER TABLE ACCOUNT ADD  Exists END');
 			}*/
 			if (!err2){
-				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr.join(), function (er, results, fields){
+				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr, function (er, results, fields){
 					console.log ('ALTER ERR');
 					console.log (er);
 					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join(), function (err3, result){
