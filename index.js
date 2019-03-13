@@ -78,7 +78,7 @@ app
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
 	  console.log ('ALTER TABLE ' + tableName + ' ' + insertFieldArr); 
 	  const client = pool.connect();
-	  pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
+	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
 			console.log(err2); 
@@ -125,7 +125,7 @@ app
 				});
 									
 			}
-		});
+		//});
 	});
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
