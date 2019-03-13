@@ -45,7 +45,7 @@ app
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         fieldArr[i]=colHeader.split(':')[0];
         insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), '');
-		if (fieldList.split(',').indexOf('Primary Key') < 0){
+		if (fieldList.split(',')[i].indexOf('Primary Key') < 0){
 			insertFieldArr[i]='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i];
 		}
 		
