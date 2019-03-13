@@ -91,7 +91,7 @@ app
 				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr, function (er, results, fields){
 					console.log ('ALTER ERR');
 					console.log (er);
-					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr, function (err3, result){
+					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (Id) DO UPDATE SET ' + upsertFieldArr, function (err3, result){
 					if (err3){
 						console.log ("ERROR:: " + err3); 
 					}
