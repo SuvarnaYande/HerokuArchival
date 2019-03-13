@@ -47,9 +47,8 @@ app
         insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), '');
 		if (fieldList.split(',')[i].indexOf('Primary Key') < 0){
 			insertFieldArr +='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i] + ',';
-		}
-		
-		upsertFieldArr += fieldArr[i] +'=EXCLUDED.'+fieldArr[i] + ',';
+			upsertFieldArr += fieldArr[i] +'=EXCLUDED.'+fieldArr[i] + ',';
+		}	
 		
         if (colHeader.indexOf(':') > 0){
           metadata = metadata.replace(fieldArr[i] + ':', '');
