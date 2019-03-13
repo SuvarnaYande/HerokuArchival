@@ -57,7 +57,7 @@ app
       }
       console.log(fieldArr);
 
-	
+      	
 	  for (i=0; i<records.length; i++){
         var result = '(';
 		var recordVal = []; 
@@ -73,7 +73,7 @@ app
       //finalResult = finalResult.substring (0, finalResult.length - 1); 
       console.log('INSERT INTO Account (' + fieldArr.join() +') VALUES ' + finalResult.join() + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr.join()); 
       console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
-	  
+	  console.log ('ALTER TABLE ' + tableName + ' ' + insertFieldArr.join()); 
 	  const client = pool.connect();
 	  pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
