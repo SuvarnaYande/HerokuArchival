@@ -90,7 +90,7 @@ app
 						//TODO: Correct place for res.End(); 
 						//res.status(200);
 						//res.end();
-						pool.query('SELECT * FROM Contact', function (err4, rows, fields) {
+						pool.query('SELECT * FROM Account', function (err4, rows, fields) {
 							//console.log ("Select err4:: " + err4);
 							if (err4){
 								console.log ("ERROR4" + err4);
