@@ -93,10 +93,10 @@ app
 					console.log (er);
 					pool.query('INSERT INTO ' + insertFields +' VALUES ' + finalResult.join()  + ' ON CONFLICT (ID) DO UPDATE SET ' + upsertFieldArr, function (err3, result){
 					if (err3){
-						console.log ("ERROR" + err3); 
+						console.log ("ERROR:: " + err3); 
 					}
 					else{
-						//console.log ("successful insertion");
+						console.log ("successful insertion");
 						//console.log (res);
 						//TODO: Correct place for res.End(); 
 						//res.status(200);
