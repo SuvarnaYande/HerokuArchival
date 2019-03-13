@@ -84,7 +84,7 @@ app
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
 		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
-			console.log(err2); 
+			console.log("err2::: " + err2); 
 			console.log(results);
 			
 			
