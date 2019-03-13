@@ -31,71 +31,56 @@ app
 	  
 	  var records = reqBody.records;
       var metadata = reqBody.metadata;
-	  var insertFields = []; 
-      var finalResult = [];
-        
+	  var colArr = []; 
+    
       var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.lastIndexOf(')')); 
 	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
       console.log (fieldList);
-      var fieldArr = [];//fieldList.split(',');
-	  var insertFieldArr = '';
+      var dataKeyArr = [];//fieldList.split(',');
+	  var alterColArr = '';
 	  var upsertFieldArr = '';
       for (i=0; i<fieldList.split(',').length; i++){
-        //fieldArr[i]=fieldList.split(',')[i].trim().split(' ')[0].split(':')[0];
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
-        fieldArr[i]=colHeader.split(':')[0];
-		insertFields[i] = colHeader.split(':')[0];
-        //insertFields =  insertFields.replace(fieldList.split(',')[i].trim().split(' ')[1].trim(), '');
+        dataKeyArr[i]=colHeader.split(':')[0];
+		colArr[i] = colHeader.replace(dataKeyArr[i] + ':', '');
+        
 		if (fieldList.split(',')[i].indexOf('Primary Key') < 0){
-			insertFieldArr +='ADD COLUMN IF NOT EXISTS ' + fieldList.split(',')[i] + ',';
-			upsertFieldArr += fieldArr[i] +'=EXCLUDED.'+fieldArr[i] + ',';
+			alterColArr +='ADD COLUMN IF NOT EXISTS ' + dataKeyArr[i] + ',';
+			upsertFieldArr += dataKeyArr[i] +'=EXCLUDED.'+dataKeyArr[i] + ',';
 		}	
 		
-        if (colHeader.indexOf(':') > 0){
-          metadata = metadata.replace(fieldArr[i] + ':', '');
-		  insertFields[i]  = insertFields[i].replace(fieldArr[i] + ':', '');
-          //insertFields  = insertFields.replace(fieldArr[i] + ':', '');
-		  //upsertFieldArr[i] = colHeader.split(':')[1] +'=EXCLUDED.'+colHeader.split(':')[1];
-        }
+        metadata = metadata.replace(dataKeyArr[i] + ':', '');
       }
-      console.log(fieldArr);
-	  //insertFields = insertFields.replace ('Primary Key' , ''); 
-	  //insertFields = insertFields.replace ('FOREIGN Key' , ''); 
-	  insertFieldArr = insertFieldArr.substring (0, insertFieldArr.length - 1);
+      console.log(dataKeyArr);
+	  alterColArr = alterColArr.substring (0, alterColArr.length - 1);
       upsertFieldArr = upsertFieldArr.substring (0, upsertFieldArr.length - 1)
-	  
+	      
+      var valArr = [];
+        
 	  for (i=0; i<records.length; i++){
-        var result = '(';
-		var recordVal = []; 
-        for (j =0; j<fieldArr.length; j++){
-			//recordVal[j] = '\'' + records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '' + '\'';
-            var fldVal = records[i][fieldArr[j].trim()] ? records[i][fieldArr[j].trim()] : '';
-            recordVal[j] = '\'' +fldVal +  '\'';
+		    var recordVal = []; 
+        for (j =0; j<dataKeyArr.length; j++){
+			      recordVal[j] = records[i][dataKeyArr[j].trim()] ? '\'' + records[i][dataKeyArr[j].trim()] + '\'' : '\'\'';  
         }
-        //result = result.substring (0, result.length - 1) + ')';
-        finalResult[i] = '('+ recordVal.join() +')';
+        valArr[i] = '('+ recordVal.join() +')';
       }
 	  
-      //finalResult = finalResult.substring (0, finalResult.length - 1); 
-      console.log('INSERT INTO ' + tableName + '(' + insertFields.join() +') VALUES ' + finalResult.join()  + ' ON CONFLICT (Id) DO UPDATE SET ' + upsertFieldArr); 
-      console.log('CREATE TABLE IF NOT EXISTS ' + metadata);
-	  console.log ('ALTER TABLE ' + tableName + ' ' + insertFieldArr); 
+      var createQuery = 'CREATE TABLE IF NOT EXISTS ' + metadata;
+      var conflictAction = upsertFieldArr ? 'UPDATE SET ' + upsertFieldArr : 'NOTHING';
+      var upsertQuery = 'INSERT INTO ' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
+	
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
-		pool.query('CREATE TABLE IF NOT EXISTS ' + metadata, function (err2, results, fields){
-			console.log("err2::: " + err2); 
+        pool.query(createQuery, function (err2, results, fields){
+		    console.log("err2::: " + err2); 
 			console.log(results);
 			
-			
-			/*for (i=0; i<insertFieldArr.length; i++){
-				pool.query ('IF COL_LENGTH(\'' + tableName + '\', 'CreateDate') IS NULL BEGIN ALTER TABLE ACCOUNT ADD  Exists END');
-			}*/
 			if (!err2){
-				pool.query ('ALTER TABLE ' + tableName + ' ' + insertFieldArr, function (er, results, fields){
+				pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
 					console.log ('ALTER ERR');
 					console.log (er);
-					pool.query('INSERT INTO ' + tableName + '(' + insertFields.join() +') VALUES ' + finalResult.join()  + ' ON CONFLICT (Id) DO UPDATE SET ' + upsertFieldArr,function (err3, result){
+					pool.query(upsertQuery, function (err3, result){
 					if (err3){
 						console.log ("ERROR:: " + err3); 
 					}
