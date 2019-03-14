@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
+    "ejs": "^2.6.1",
     "express": "^4.15.2",
     "express-basic-auth": "^1.1.6",
-    "hbs": "^4.0.3",
     "pg": "^7.8.0"
   },
   "devDependencies": {

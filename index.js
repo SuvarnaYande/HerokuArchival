@@ -3,7 +3,7 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
 const basicAuth = require('express-basic-auth')
-var hbs = require('hbs');
+var hbs = require('ejs');
 
 //module.exports = basicAuth({ users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' } })
 
@@ -24,11 +24,12 @@ var app = express();
 app
   .use(bodyParser.json())
   .use(basicAuth( { authorizer: myAuthorizer } ))
-  .set('view engine', 'hbs')
+  .set('view engine', 'ejs')
   .get('/archivaldata', function (req, res{
 	  const client = pool.connect();
 	  pool.query('SELECT * FROM Account', function (err4, rows, fields) {
-		  res.render('index', {records: rows});
+		  //res.render('index', {records: rows});
+		  res.render('pages/db', rows )
 	  })
   })
   .post('/sfdcarchive', function (req, res) {
