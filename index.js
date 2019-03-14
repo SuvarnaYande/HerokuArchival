@@ -29,7 +29,9 @@ app
 	  const client = pool.connect();
 	  pool.query('SELECT * FROM Account', function (err4, rows, fields) {
 		  //res.render('index', {records: rows});
-		  res.render('pages/db', rows )
+		  res.render('pages/db', rows );
+		  res.status(200);
+						res.end();
 	  })
   })
   .post('/sfdcarchive', function (req, res) {
