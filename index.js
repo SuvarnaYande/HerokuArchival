@@ -79,7 +79,9 @@ app
       var createQuery = 'CREATE TABLE IF NOT EXISTS ' + metadata;
       var conflictAction = upsertFieldArr ? 'UPDATE SET ' + upsertFieldArr : 'NOTHING';
       var upsertQuery = 'INSERT INTO ' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
-	
+	  
+	  console.log(createQuery);
+      console.log(upsertQuery); 	  
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
