@@ -48,13 +48,13 @@ app
 	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
       console.log (fieldList);
       var dataKeyArr = [];//fieldList.split(',');
-	  //var dataTypeArr = [];
+	  var dataTypeArr = [];
 	  var alterColArr = '';
 	  var upsertFieldArr = '';
       for (i=0; i<fieldList.split(',').length; i++){
 		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
         dataKeyArr[i]=colHeader.split(':')[0];
-		//dataTypeArr[i]=fieldList.split(',')[i].trim().split(' ')[1];
+		dataTypeArr[i]=fieldList.split(',')[i].trim().split(' ')[1];
 		colArr[i] = colHeader.replace(dataKeyArr[i] + ':', '');
         
 		if (fieldList.split(',')[i].indexOf('Primary Key') < 0){
@@ -74,9 +74,9 @@ app
 		var recordVal = []; 
         for (j =0; j<dataKeyArr.length; j++){
 			var fldVal = records[i][dataKeyArr[j].trim()] ? records[i][dataKeyArr[j].trim()] : '';
-			//if (dataTypeArr[i].trim() == 'BOOLEAN' && fldVal==''){
-			//	fldVal = false;
-			//}
+			if (dataTypeArr[j].trim() == 'BOOLEAN' && fldVal==''){
+				fldVal = false;
+			}
 			recordVal[j] = '\'' + fldVal + '\'';  
         }
         valArr[i] = '('+ recordVal.join() +')';
