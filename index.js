@@ -25,7 +25,7 @@ app
   .use(bodyParser.json())
   .use(basicAuth( { authorizer: myAuthorizer } ))
   .set('view engine', 'ejs')
-  .get('/archivaldata', function (req, res{
+  .get('/archivaldata', function (req, res){
 	  const client = pool.connect();
 	  pool.query('SELECT * FROM Account', function (err4, rows, fields) {
 		  //res.render('index', {records: rows});
