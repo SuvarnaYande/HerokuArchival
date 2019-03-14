@@ -3,6 +3,7 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 var bodyParser = require('body-parser')
 const basicAuth = require('express-basic-auth')
+var hbs = require('hbs');
 
 //module.exports = basicAuth({ users: { 'suvarnasanket.yande@cognizant.com': '#Saanvi123' } })
 
@@ -23,6 +24,13 @@ var app = express();
 app
   .use(bodyParser.json())
   .use(basicAuth( { authorizer: myAuthorizer } ))
+  .set('view engine', 'hbs')
+  .get('/archivaldata', function (req, res{
+	  const client = pool.connect();
+	  pool.query('SELECT * FROM Account', function (err4, rows, fields) {
+		  res.render('index', {records: rows});
+	  })
+  })
   .post('/sfdcarchive', function (req, res) {
 	  console.log ('Invoked by SFDC::::::'); 
 	  console.log (req.query.code); 
