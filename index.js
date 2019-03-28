@@ -78,7 +78,8 @@ app
 				fldVal = false;
 			}*/
 			//recordVal[j] =  '\'' + fldVal + '\''; 
-			recordVal[j] =  records[i][dataKeyArr[j].trim()] ? '\'' + (records[i][dataKeyArr[j].trim()]).tostring().replace (/'/g, "''") + '\'' : 'default'; 
+			var fldVal = records[i][dataKeyArr[j].trim()]; 
+			recordVal[j] = fldVal ? '\'' + fldVal.replace (/'/g, "''") + '\'' : 'default'; 
         }
         valArr[i] = '('+ recordVal.join() +')';
       }
