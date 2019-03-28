@@ -73,7 +73,7 @@ app
 	  for (i=0; i<records.length; i++){
 		var recordVal = []; 
         for (j =0; j<dataKeyArr.length; j++){
-			var fldVal = records[i][dataKeyArr[j].trim()] ? records[i][dataKeyArr[j].trim()] : NULL;
+			var fldVal = records[i][dataKeyArr[j].trim()] ? records[i][dataKeyArr[j].trim()] : null;
 			/*if (dataTypeArr[j].toUpperCase().trim() == 'BOOLEAN' && fldVal==''){
 				fldVal = false;
 			}*/
