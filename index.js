@@ -79,9 +79,9 @@ app
 			}*/
 			//recordVal[j] =  '\'' + fldVal + '\''; 
 			var fldVal = (records[i][dataKeyArr[j].trim()]); 
-			//if (fldVal && fldVal.toString().indexOf('\'')>-1){
-			//	fldVal = fldVal.replace ("\'", "\'\'")
-			//}
+			if (fldVal && typeof fldVal == 'string' ){
+				fldVal = fldVal.replace ("\'", "\'\'")
+			}
 			//recordVal[j] = fldVal ? '\'' + fldVal.replace('\'', '\'\'') + '\'' : 'default'; 
 			recordVal[j] = fldVal ? '\'' + fldVal + '\'' : 'default'; 
 			
