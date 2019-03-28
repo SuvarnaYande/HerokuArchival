@@ -84,13 +84,6 @@ app
 			}
 			//recordVal[j] = fldVal ? '\'' + fldVal.replace('\'', '\'\'') + '\'' : 'default'; 
 			recordVal[j] = fldVal ? '\'' + fldVal + '\'' : 'default'; 
-			
-			if(dataKeyArr[j].trim() == 'Description'){
-				console.log (records[i][dataKeyArr[j].trim()]);
-				console.log (typeof fldVal);
-				console.log (fldVal.replace ("\'", "\'\'")); 				
-				console.log (recordVal[j]); 
-			}
         }
         valArr[i] = '('+ recordVal.join() +')';
       }
