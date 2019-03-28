@@ -31,7 +31,7 @@ app
 		  //res.render('index', {records: rows});
 		  res.render('pages/db', rows );
 		  res.status(200);
-						res.end();
+		  res.end();
 	  })
   })
   .post('/sfdcarchive', function (req, res) {
@@ -57,7 +57,7 @@ app
 		dataTypeArr[i]=fieldList.split(',')[i].trim().split(' ')[1];
 		colArr[i] = colHeader.replace(dataKeyArr[i] + ':', '');
         
-		if (fieldList.split(',')[i].indexOf('Primary Key') < 0){
+		if (fieldList.split(',')[i].toUpperCase().indexOf('PRIMARY KEY') < 0){
 			alterColArr +='ADD COLUMN IF NOT EXISTS ' + dataKeyArr[i] + ',';
 			upsertFieldArr += dataKeyArr[i] +'=EXCLUDED.'+dataKeyArr[i] + ',';
 		}	
@@ -73,10 +73,10 @@ app
 	  for (i=0; i<records.length; i++){
 		var recordVal = []; 
         for (j =0; j<dataKeyArr.length; j++){
-			var fldVal = records[i][dataKeyArr[j].trim()] ? records[i][dataKeyArr[j].trim()] : '';
-			if (dataTypeArr[j].toUpperCase().trim() == 'BOOLEAN' && fldVal==''){
+			var fldVal = records[i][dataKeyArr[j].trim()] ? records[i][dataKeyArr[j].trim()] : NULL;
+			/*if (dataTypeArr[j].toUpperCase().trim() == 'BOOLEAN' && fldVal==''){
 				fldVal = false;
-			}
+			}*/
 			recordVal[j] = '\'' + fldVal + '\'';  
         }
         valArr[i] = '('+ recordVal.join() +')';
