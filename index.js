@@ -88,7 +88,8 @@ app
       var upsertQuery = 'INSERT INTO ' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
 	  
 	  console.log(createQuery);
-      console.log(upsertQuery); 	  
+      console.log(upsertQuery); 
+console.log('ALTER TABLE ' + tableName + ' ' + alterColArr);	  
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
