@@ -84,7 +84,7 @@ app
 			
 			if(dataKeyArr[j].trim() == 'Description'){
 				console.log (records[i][dataKeyArr[j].trim()]);
-				console.log (fldVal.replace ("\'", "\'\'"); 				
+				console.log (fldVal.replace ("\'", "\'\'")); 				
 				console.log (recordVal[j]); 
 			}
         }
