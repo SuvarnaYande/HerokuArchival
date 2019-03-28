@@ -89,7 +89,7 @@ app
 	  
 	  console.log(createQuery);
       console.log(upsertQuery); 
-console.log('ALTER TABLE ' + tableName + ' ' + alterColArr);	  
+  
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
