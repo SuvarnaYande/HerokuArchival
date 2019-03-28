@@ -79,7 +79,7 @@ app
 			}*/
 			//recordVal[j] =  '\'' + fldVal + '\''; 
 			var fldVal = (records[i][dataKeyArr[j].trim()]); 
-			if (fldVal.indexOf('\'')>-1){
+			if (fldVal.toString().indexOf('\'')>-1){
 				fldVal = fldVal.replace ("\'", "\'\'")
 			}
 			//recordVal[j] = fldVal ? '\'' + fldVal.replace('\'', '\'\'') + '\'' : 'default'; 
