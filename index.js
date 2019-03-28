@@ -46,7 +46,7 @@ app
     
       var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.lastIndexOf(')')); 
 	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
-      console.log (fieldList);
+      //console.log (fieldList);
       var dataKeyArr = [];//fieldList.split(',');
 	  var dataTypeArr = [];
 	  var alterColArr = '';
@@ -64,7 +64,7 @@ app
 		
         metadata = metadata.replace(dataKeyArr[i] + ':', '');
       }
-      console.log(dataKeyArr);
+      //console.log(dataKeyArr);
 	  alterColArr = alterColArr.substring (0, alterColArr.length - 1);
       upsertFieldArr = upsertFieldArr.substring (0, upsertFieldArr.length - 1)
 	      
@@ -80,7 +80,12 @@ app
 			//recordVal[j] =  '\'' + fldVal + '\''; 
 			var fldVal = records[i][dataKeyArr[j].trim()]; 
 			//recordVal[j] = fldVal ? '\'' + fldVal.replace('\'', '\'\'') + '\'' : 'default'; 
-			recordVal[j] = fldVal ? fldVal : 'default'; 
+			recordVal[j] = fldVal ? '\'' + fldVal + '\'' : 'default'; 
+			
+			if(dataKeyArr[j].trim() = 'Description'){
+				console.log (records[i][dataKeyArr[j].trim()]); 
+				console.log (recordVal[j]); 
+			}
         }
         valArr[i] = '('+ recordVal.join() +')';
       }
@@ -89,7 +94,7 @@ app
       var conflictAction = upsertFieldArr ? 'UPDATE SET ' + upsertFieldArr : 'NOTHING';
       var upsertQuery = 'INSERT INTO ' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
 	  
-	  console.log(createQuery);
+	  //console.log(createQuery);
       console.log(upsertQuery); 
   
 	  const client = pool.connect();
@@ -97,7 +102,7 @@ app
 		//console.log(err1); 
         pool.query(createQuery, function (err2, results, fields){
 		    console.log("err2::: " + err2); 
-			console.log(results);
+			//console.log(results);
 			
 			if (!err2){
 				pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
