@@ -78,9 +78,9 @@ app
 				fldVal = false;
 			}*/
 			//recordVal[j] =  '\'' + fldVal + '\''; 
-			var fldVal = records[i][dataKeyArr[j].trim()]; 
+			var fldVal = (records[i][dataKeyArr[j].trim()]).replace ("\'", "\'\'"); 
 			//recordVal[j] = fldVal ? '\'' + fldVal.replace('\'', '\'\'') + '\'' : 'default'; 
-			recordVal[j] = fldVal ? '\'' + fldVal.replace ("\'", "\'\'") + '\'' : 'default'; 
+			recordVal[j] = fldVal ? '\'' + fldVal + '\'' : 'default'; 
 			
 			if(dataKeyArr[j].trim() == 'Description'){
 				console.log (records[i][dataKeyArr[j].trim()]);
