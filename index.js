@@ -78,7 +78,7 @@ app
 				fldVal = false;
 			}*/
 			//recordVal[j] =  '\'' + fldVal + '\''; 
-			recordVal[j] =  records[i][dataKeyArr[j].trim()] ? '\'' + (records[i][dataKeyArr[j].trim()]).replace (/'/g, "''") + '\'' : 'default'; 
+			recordVal[j] =  records[i][dataKeyArr[j].trim()] ? '\'' + (records[i][dataKeyArr[j].trim()]).tostring().replace (/'/g, "''") + '\'' : 'default'; 
         }
         valArr[i] = '('+ recordVal.join() +')';
       }
