@@ -88,7 +88,7 @@ app
         valArr[i] = '('+ recordVal.join() +')';
       }
 	  
-      var createQuery = 'CREATE TABLE IF NOT EXISTS ' + metadata;
+      var createQuery = 'CREATE TABLE IF NOT EXISTS CA_' + metadata;
       var conflictAction = upsertFieldArr ? 'UPDATE SET ' + upsertFieldArr : 'NOTHING';
       var upsertQuery = 'INSERT INTO ' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
 	  
