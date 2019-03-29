@@ -107,34 +107,36 @@ app
 				pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
 					//console.log ('ALTER ERR');
 					//console.log (er);
-					pool.query(upsertQuery, function (err3, result){
-					if (err3){
-						console.log ("ERROR:: " + err3); 
-					}
-					else{
-						console.log ("successful insertion");
-						//console.log (res);
-						//TODO: Correct place for res.End(); 
-						//res.status(200);
-						//res.end();
-						pool.query('SELECT * FROM ' + tableName, function (err4, rows, fields) {
-							//console.log ("Select err4:: " + err4);
-							if (err4){
-								console.log ("ERROR4" + err4);
-							}
-							else{
-								console.log ("Data from PG:::::::::::::");
-								//console.log (err);
-								console.log (rows.rowCount);
-								//TODO: below 2 lines are only for testing. Needs to be removed.
-								res.status(200);
-						res.end();
-							}
-							//pool.end();
-						});	
-						//res.status(201).end();
-						
-						//res.status(200).json({"message":"successful"});
+					if (valArr){
+						pool.query(upsertQuery, function (err3, result){
+						if (err3){
+							console.log ("ERROR:: " + err3); 
+						}
+						else{
+							console.log ("successful insertion");
+							//console.log (res);
+							//TODO: Correct place for res.End(); 
+							//res.status(200);
+							//res.end();
+							pool.query('SELECT * FROM ' + tableName, function (err4, rows, fields) {
+								//console.log ("Select err4:: " + err4);
+								if (err4){
+									console.log ("ERROR4" + err4);
+								}
+								else{
+									console.log ("Data from PG:::::::::::::");
+									//console.log (err);
+									console.log (rows.rowCount);
+									//TODO: below 2 lines are only for testing. Needs to be removed.
+									res.status(200);
+							res.end();
+								}
+								//pool.end();
+							});	
+							//res.status(201).end();
+							
+							//res.status(200).json({"message":"successful"});
+						}
 					}
 				});
 				});
