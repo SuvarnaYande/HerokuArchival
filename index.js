@@ -107,7 +107,7 @@ app
 			pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
 				//console.log ('ALTER ERR');
 				//console.log (er);
-				if (records != undefined){
+				if (typeof records != 'undefined' && valArr.length > 0){
 					pool.query(upsertQuery, function (err3, result){
 						if (err3){
 							console.log ("ERROR:: " + err3); 
@@ -138,6 +138,10 @@ app
 							//res.status(200).json({"message":"successful"});
 						}
 					});
+				}
+				else{
+					res.status(200);
+					res.end();
 				}
 			});
 									
