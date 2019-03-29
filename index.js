@@ -23,7 +23,7 @@ var app = express();
 
 app
   .use(bodyParser.json())
-  //.use(basicAuth( { authorizer: myAuthorizer } ))
+  .use(basicAuth( { authorizer: myAuthorizer } ))
   .set('view engine', 'ejs')
   .get('/archivaldata', function (req, res){
 	  const client = pool.connect();
