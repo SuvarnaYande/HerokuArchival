@@ -23,12 +23,13 @@ var app = express();
 
 app
   .use(bodyParser.json())
-  .use(basicAuth( { authorizer: myAuthorizer } ))
+  //.use(basicAuth( { authorizer: myAuthorizer } ))
   .set('view engine', 'ejs')
   .get('/archivaldata', function (req, res){
 	  const client = pool.connect();
-	  pool.query('SELECT * FROM Account', function (err4, rows, fields) {
+	  pool.query('SELECT * FROM information_schema.columns', function (err4, rows, fields) {
 		  //res.render('index', {records: rows});
+		  console.log (rows); 
 		  res.render('pages/db', rows );
 		  res.status(200);
 		  res.end();
