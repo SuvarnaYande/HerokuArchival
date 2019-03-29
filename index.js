@@ -99,16 +99,16 @@ app
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
 		//console.log(err1); 
-        pool.query(createQuery, function (err2, results, fields){
-		    console.log("err2::: " + err2); 
+      pool.query(createQuery, function (err2, results, fields){
+		console.log("err2::: " + err2); 
 			//console.log(results);
 			
-			if (!err2){
-				pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
-					//console.log ('ALTER ERR');
-					//console.log (er);
-					if (valArr){
-						pool.query(upsertQuery, function (err3, result){
+		if (!err2){
+			pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
+				//console.log ('ALTER ERR');
+				//console.log (er);
+				if (valArr){
+					pool.query(upsertQuery, function (err3, result){
 						if (err3){
 							console.log ("ERROR:: " + err3); 
 						}
@@ -129,7 +129,7 @@ app
 									console.log (rows.rowCount);
 									//TODO: below 2 lines are only for testing. Needs to be removed.
 									res.status(200);
-							res.end();
+									res.end();
 								}
 								//pool.end();
 							});	
@@ -137,9 +137,9 @@ app
 							
 							//res.status(200).json({"message":"successful"});
 						}
-					}
-				});
-				});
+					});
+				}
+			});
 									
 			}
 		//});
