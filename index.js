@@ -39,7 +39,7 @@ app
 	  console.log ('Invoked by SFDC::::::'); 
 	  console.log (req.query.code); 
 	  var reqBody = req.body; 
-	  console.log (reqBody);
+	  //console.log (reqBody);
 	  
 	  var records = reqBody.records;
       var metadata = reqBody.metadata;
@@ -94,7 +94,7 @@ app
       var upsertQuery = 'INSERT INTO CA_' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
 	  
 	  //console.log(createQuery);
-      console.log(upsertQuery); 
+      //console.log(upsertQuery); 
   
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
