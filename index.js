@@ -78,7 +78,7 @@ app
 				fldVal = false;
 			}*/
 			//recordVal[j] =  '\'' + fldVal + '\''; 
-			var fldVal = (records[i][dataKeyArr[j].trim()]); 
+			var fldVal = (records[i][dataKeyArr[j].trim()]);  
 			if (fldVal && typeof fldVal == 'string' ){
 				fldVal = fldVal.replace ("\'", "\'\'")
 			}
