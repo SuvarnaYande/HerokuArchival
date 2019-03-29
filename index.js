@@ -91,7 +91,7 @@ app
 	  
       var createQuery = 'CREATE TABLE IF NOT EXISTS CA_' + metadata;
       var conflictAction = upsertFieldArr ? 'UPDATE SET ' + upsertFieldArr : 'NOTHING';
-      var upsertQuery = 'INSERT INTO ' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
+      var upsertQuery = 'INSERT INTO CA_' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
 	  
 	  //console.log(createQuery);
       console.log(upsertQuery); 
@@ -104,7 +104,7 @@ app
 			//console.log(results);
 			
 		if (!err2){
-			pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
+			pool.query ('ALTER TABLE CA_' + tableName + ' ' + alterColArr, function (er, results, fields){
 				//console.log ('ALTER ERR');
 				//console.log (er);
 				if (typeof records != 'undefined' && valArr.length > 0){
@@ -118,7 +118,7 @@ app
 							//TODO: Correct place for res.End(); 
 							//res.status(200);
 							//res.end();
-							pool.query('SELECT * FROM ' + tableName, function (err4, rows, fields) {
+							pool.query('SELECT * FROM CA_' + tableName, function (err4, rows, fields) {
 								//console.log ("Select err4:: " + err4);
 								if (err4){
 									console.log ("ERROR4" + err4);
