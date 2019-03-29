@@ -124,7 +124,7 @@ app
 							else{
 								console.log ("Data from PG:::::::::::::");
 								//console.log (err);
-								console.log (rows);
+								console.log (rows.rowCount);
 								//TODO: below 2 lines are only for testing. Needs to be removed.
 								res.status(200);
 						res.end();
