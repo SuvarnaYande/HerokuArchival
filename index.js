@@ -107,7 +107,7 @@ app
 			pool.query ('ALTER TABLE ' + tableName + ' ' + alterColArr, function (er, results, fields){
 				//console.log ('ALTER ERR');
 				//console.log (er);
-				if (records){
+				if (records != undefined){
 					pool.query(upsertQuery, function (err3, result){
 						if (err3){
 							console.log ("ERROR:: " + err3); 
