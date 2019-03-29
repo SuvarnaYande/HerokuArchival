@@ -104,6 +104,7 @@ app
 			//console.log(results);
 			
 		if (!err2){
+			console.log('ALTER TABLE CA_' + tableName + ' ' + alterColArr);
 			pool.query ('ALTER TABLE CA_' + tableName + ' ' + alterColArr, function (er, results, fields){
 				console.log ('ALTER ERR');
 				console.log (er);
