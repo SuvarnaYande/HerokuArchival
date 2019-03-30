@@ -53,13 +53,13 @@ app
 	  var alterColArr = '';
 	  var upsertFieldArr = '';
       for (i=0; i<fieldList.split(',').length; i++){
-		var colHeader = fieldList.split(',')[i].trim().split(' ')[0]
+		var colHeader = fieldList.split(',')[i].trim().split(' ')[0];
         dataKeyArr[i]=colHeader.split(':')[0];
 		dataTypeArr[i]=fieldList.split(',')[i].trim().split(' ')[1];
 		colArr[i] = colHeader.replace(dataKeyArr[i] + ':', '');
         
 		if (fieldList.split(',')[i].toUpperCase().indexOf('PRIMARY KEY') < 0){
-			alterColArr +='ADD COLUMN IF NOT EXISTS ' + dataKeyArr[i] + ',';
+			alterColArr +='ADD COLUMN IF NOT EXISTS ' +  fieldList.split(',')[i].trim() + ',';
 			upsertFieldArr += dataKeyArr[i] +'=EXCLUDED.'+dataKeyArr[i] + ',';
 		}	
 		
