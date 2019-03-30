@@ -120,8 +120,7 @@ app
 											res.end();
 										}
 										else{
-											console.log ("Data from PG:::::::::::::");
-											console.log (rows.rowCount);.
+											console.log ("Data from PG:::::::::::::" + rows.rowCount);
 											client.release();
 											res.status(200);
 											res.end();
