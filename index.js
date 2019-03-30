@@ -47,7 +47,7 @@ app
     
       var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.lastIndexOf(')')); 
 	  var tableName = metadata.substring(0, metadata.indexOf('(')); 
-      //console.log (fieldList);
+      console.log (fieldList);
       var dataKeyArr = [];//fieldList.split(',');
 	  var dataTypeArr = [];
 	  var alterColArr = '';
@@ -65,7 +65,7 @@ app
 		
         metadata = metadata.replace(dataKeyArr[i] + ':', '');
       }
-      //console.log(dataKeyArr);
+      console.log(dataKeyArr);
 	  alterColArr = alterColArr.substring (0, alterColArr.length - 1);
       upsertFieldArr = upsertFieldArr.substring (0, upsertFieldArr.length - 1)
 	      
@@ -93,8 +93,8 @@ app
       var conflictAction = upsertFieldArr ? 'UPDATE SET ' + upsertFieldArr : 'NOTHING';
       var upsertQuery = 'INSERT INTO CA_' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
 	  
-	  //console.log(createQuery);
-      //console.log(upsertQuery); 
+	  console.log(createQuery);
+      console.log(upsertQuery); 
   
 	  const client = pool.connect();
 	  //pool.query('DROP TABLE IF EXISTS Account', function (err1, result){
