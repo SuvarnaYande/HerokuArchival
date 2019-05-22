@@ -29,15 +29,15 @@ app
 	  const client = pool.connect();
 	  pool.query('SELECT * FROM information_schema.columns', function (err4, rows, fields) {
 		  //res.render('index', {records: rows});
-		  console.log (rows); 
+		  //console.log (rows); 
 		  res.render('pages/db', rows );
 		  res.status(200);
 		  res.end(); 
 	  })
   })
 	.post('/sfdcarchive', function (req, res) {
-		console.log ('Invoked by SFDC::::::'); 
-		console.log (req.query.code); 
+		//console.log ('Invoked by SFDC::::::'); 
+		//console.log (req.query.code); 
 		var reqBody = req.body; 
 		//console.log (reqBody);
 	  
@@ -47,7 +47,7 @@ app
     
 		var fieldList = metadata.substring(metadata.indexOf('(')+1, metadata.lastIndexOf(')')); 
 		var tableName = metadata.substring(0, metadata.indexOf('(')); 
-		console.log (fieldList);
+		//console.log (fieldList);
 		var dataKeyArr = [];//fieldList.split(',');
 		var dataTypeArr = [];
 		var alterColArr = '';
@@ -65,7 +65,7 @@ app
 		
 			metadata = metadata.replace(dataKeyArr[i] + ':', '');
 		}
-		console.log(dataKeyArr);
+		//console.log(dataKeyArr);
 		alterColArr = alterColArr.substring (0, alterColArr.length - 1);
 		upsertFieldArr = upsertFieldArr.substring (0, upsertFieldArr.length - 1)
 	      
@@ -93,18 +93,18 @@ app
 		var conflictAction = upsertFieldArr ? 'UPDATE SET ' + upsertFieldArr : 'NOTHING';
 		var upsertQuery = 'INSERT INTO CA_' + tableName + '(' + colArr.join() +') VALUES ' + valArr.join()  + ' ON CONFLICT (Id) DO ' +  conflictAction;
 	  
-		console.log(createQuery);
-		console.log(upsertQuery); 
+		//console.log(createQuery);
+		//console.log(upsertQuery); 
   
 		//const client = pool.connect();
 		pool.connect().then(client => {
 			client.query(createQuery, function (err2, results, fields){
-				console.log("err2::: " + err2); 
+				//console.log("err2::: " + err2); 
 				if (!err2){
 					console.log('ALTER TABLE CA_' + tableName + ' ' + alterColArr);
 					client.query ('ALTER TABLE CA_' + tableName + ' ' + alterColArr, function (er, results, fields){
-						console.log ('ALTER ERR');
-						console.log (er);
+						//console.log ('ALTER ERR');
+						//console.log (er);
 						if (typeof records != 'undefined' && valArr.length > 0){
 							client.query(upsertQuery, function (err3, result){
 								if (err3){
